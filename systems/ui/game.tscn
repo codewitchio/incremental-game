@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dedf3v38bysyc"]
+[gd_scene load_steps=8 format=3 uid="uid://dedf3v38bysyc"]
 
 [ext_resource type="Script" uid="uid://vlfvi2hp3ute" path="res://systems/ui/button.gd" id="1_qaoxu"]
-[ext_resource type="Texture2D" uid="uid://mw0rlk488lf0" path="res://icon.svg" id="1_svem2"]
+[ext_resource type="Theme" uid="uid://df64srr2x8vbc" path="res://systems/ui/theme.tres" id="1_yxb3l"]
 [ext_resource type="Script" uid="uid://b2cy5jwid4j45" path="res://systems/ui/number.gd" id="2_svem2"]
 [ext_resource type="PackedScene" uid="uid://b6os08ps48nlp" path="res://entities/enemy/enemy.tscn" id="2_uwrws"]
+[ext_resource type="Texture2D" uid="uid://bjd33id0fvhuh" path="res://entities/player/circle.svg" id="3_uwrws"]
 [ext_resource type="Script" uid="uid://c63iwymrphneu" path="res://entities/enemy/enemy_spawner.gd" id="5_yxb3l"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6o2s0"]
@@ -16,40 +17,38 @@ layer = -1
 [node name="UI" type="Control" parent="Background"]
 z_index = 1
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
 offset_bottom = 40.0
+grow_horizontal = 2
+theme = ExtResource("1_yxb3l")
 
 [node name="Button" type="Button" parent="Background/UI"]
+visible = false
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 508.0
-offset_top = 288.5
-offset_right = 604.0
-offset_bottom = 319.5
+offset_left = -48.0
+offset_right = 48.0
+offset_bottom = 31.0
 grow_horizontal = 2
-grow_vertical = 2
 text = "Click me <3"
 script = ExtResource("1_qaoxu")
 store_key = "score"
 
 [node name="Number" type="Label" parent="Background/UI"]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 536.0
-offset_top = 241.0
-offset_right = 576.0
-offset_bottom = 264.0
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
 grow_horizontal = 2
-grow_vertical = 2
 text = "0"
 horizontal_alignment = 1
 script = ExtResource("2_svem2")
@@ -61,21 +60,24 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 1)
+color = Color(0.043039158, 0.04303915, 0.04303915, 1)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+[node name="Player" type="CharacterBody2D" parent="."]
 position = Vector2(2, 3)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource("CircleShape2D_6o2s0")
 
-[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
-texture = ExtResource("1_svem2")
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+modulate = Color(0.93333334, 0.93333334, 0.93333334, 1)
+texture = ExtResource("3_uwrws")
 
 [node name="Enemy" parent="." instance=ExtResource("2_uwrws")]
 position = Vector2(519, -227)
 
 [node name="EnemySpawner" type="Node2D" parent="."]
 script = ExtResource("5_yxb3l")
+
+[node name="Node2D" type="Node2D" parent="."]
