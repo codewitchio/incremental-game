@@ -19,4 +19,5 @@ func _init(pos: Vector2 = Vector2.ZERO, data: EnemyData = default_data) -> void:
 	sprite = data.sprite
 	scale = data.scale
 	sprite_offset = data.sprite_offset
+	collision_radius = data.collision_radius
 	current_health = data.health

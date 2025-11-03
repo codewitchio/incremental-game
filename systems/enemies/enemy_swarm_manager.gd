@@ -10,6 +10,10 @@ var enemies: Array[EnemyInstance] = []
 ## Target position for enemies to move towards (default is player position).
 var target_position: Vector2 = Constants.PlayerPosition
 
+## Player collision radius for collision detection.
+@export var player_collision_radius: float = 50.0
+# TODO: Collision radius is a player stat and should be in some type of Store.
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if spawner == null:
@@ -24,6 +28,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	target_position = Constants.PlayerPosition
 	_update_enemy_positions(delta)
+	_check_collisions()
 	_update_multimesh()
 
 ## Handles new enemy spawns from the spawner.
@@ -73,4 +78,35 @@ func _update_multimesh() -> void:
 		if enemy.sprite_offset != Vector2.ZERO:
 			instance_transform.origin += instance_transform.basis_xform(enemy.sprite_offset)
 		
-		multimesh.set_instance_transform_2d(i, instance_transform) 
+		multimesh.set_instance_transform_2d(i, instance_transform)
+
+## Checks for collisions between enemies and the player.
+func _check_collisions() -> void:
+	var player_position = Constants.PlayerPosition
+	
+	# Collect enemies to remove (avoid modifying array while iterating)
+	var enemies_to_remove: Array[EnemyInstance] = []
+	
+	for enemy in enemies:
+		# Calculate collision radius for this enemy (scale collision radius by sprite scale)
+		var enemy_radius = enemy.collision_radius * max(enemy.scale.x, enemy.scale.y)
+		var combined_radius = player_collision_radius + enemy_radius
+		var combined_radius_squared = combined_radius * combined_radius
+		
+		var distance_squared = enemy.position.distance_squared_to(player_position)
+		
+		if distance_squared <= combined_radius_squared:
+			_handle_enemy_collision_with_player(enemy)
+			enemies_to_remove.append(enemy)
+	
+	# Remove collided enemies
+	for enemy in enemies_to_remove:
+		enemies.erase(enemy)
+	
+	# Update multimesh instance count if any enemies were removed
+	if enemies_to_remove.size() > 0:
+		multimesh.instance_count = enemies.size()
+
+func _handle_enemy_collision_with_player(_enemy_instance: EnemyInstance) -> void:
+	# TODO: Damage, VFX, etc.
+	pass
