@@ -25,6 +25,10 @@ Strings="*res://systems/data/strings.gd"
 Signals="*res://systems/data/signals.gd"
 Store="*res://systems/data/store.gd"
 
+[debug]
+
+gdscript/warnings/unused_signal=0
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/maaacks_menus_template/plugin.cfg")

@@ -8,12 +8,13 @@ extends Resource
 @export var health: float = 100.0
 
 ## Sprite texture.
+## TODO: This is ignored by the EnemySwarmManager since it has its own texture.
 @export var sprite: Texture2D = null
 
 ## Sprite scale.
 @export var scale: Vector2 = Vector2.ONE
 
 ## Sprite offset.
-@export var offset: Vector2 = Vector2.ZERO
+@export var sprite_offset: Vector2 = Vector2.ZERO
 
-# TODO: Collission shape radius
+# TODO: Collision shape radius

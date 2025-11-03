@@ -1,0 +1,7 @@
+[gd_resource type="MultiMesh" load_steps=2 format=3 uid="uid://bivedxr2y8i7h"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_eo8vb"]
+size = Vector2(102, 102)
+
+[resource]
+mesh = SubResource("QuadMesh_eo8vb")

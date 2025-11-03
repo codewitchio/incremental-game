@@ -1,0 +1,94 @@
+[gd_scene load_steps=11 format=3 uid="uid://dedf3v38bysyc"]
+
+[ext_resource type="Theme" uid="uid://df64srr2x8vbc" path="res://systems/ui/theme/theme.tres" id="1_dft0o"]
+[ext_resource type="Script" uid="uid://vlfvi2hp3ute" path="res://systems/ui/button.gd" id="2_3msmo"]
+[ext_resource type="Script" uid="uid://b2cy5jwid4j45" path="res://systems/ui/number.gd" id="3_eo8vb"]
+[ext_resource type="Texture2D" uid="uid://bjd33id0fvhuh" path="res://entities/player/circle.svg" id="4_8ybjc"]
+[ext_resource type="Script" uid="uid://coy03ldbbi2jk" path="res://entities/player/attack_indicator.gd" id="5_hqdei"]
+[ext_resource type="Texture2D" uid="uid://clmhbmkcn26fb" path="res://entities/enemy/triangle.svg" id="6_3msmo"]
+[ext_resource type="MultiMesh" uid="uid://bivedxr2y8i7h" path="res://systems/enemies/enemies_multimesh.tres" id="6_eo8vb"]
+[ext_resource type="Script" uid="uid://bmh816uhtwq3t" path="res://systems/enemies/enemy_swarm_manager.gd" id="6_o883i"]
+[ext_resource type="Script" uid="uid://c63iwymrphneu" path="res://systems/enemies/enemy_spawner.gd" id="7_p01kn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6o2s0"]
+
+[node name="Game" type="Node2D"]
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="UI" type="Control" parent="Background"]
+z_index = 1
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+theme = ExtResource("1_dft0o")
+
+[node name="Button" type="Button" parent="Background/UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -48.0
+offset_right = 48.0
+offset_bottom = 31.0
+grow_horizontal = 2
+text = "Click me <3"
+script = ExtResource("2_3msmo")
+store_key = "score"
+
+[node name="Number" type="Label" parent="Background/UI"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "0"
+horizontal_alignment = 1
+script = ExtResource("3_eo8vb")
+store_key = "score"
+
+[node name="ColorRect" type="ColorRect" parent="Background"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.043039158, 0.04303915, 0.04303915, 1)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Player" type="CharacterBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("CircleShape2D_6o2s0")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+modulate = Color(0.93333334, 0.93333334, 0.93333334, 1)
+texture = ExtResource("4_8ybjc")
+
+[node name="AttackIndicator" type="Node2D" parent="Player"]
+script = ExtResource("5_hqdei")
+indicator_color = Color(0.93333334, 0.93333334, 0.93333334, 1)
+
+[node name="Node2D" type="Node2D" parent="Player"]
+
+[node name="EnemyController" type="MultiMeshInstance2D" parent="." node_paths=PackedStringArray("spawner")]
+modulate = Color(0.93333334, 0.93333334, 0.93333334, 1)
+multimesh = ExtResource("6_eo8vb")
+texture = ExtResource("6_3msmo")
+script = ExtResource("6_o883i")
+spawner = NodePath("EnemySpawner")
+
+[node name="EnemySpawner" type="Node2D" parent="EnemyController"]
+script = ExtResource("7_p01kn")
+spawn_rate = 0.02

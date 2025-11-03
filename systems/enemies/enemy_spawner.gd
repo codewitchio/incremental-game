@@ -15,6 +15,8 @@ var enemy_scene: PackedScene = preload("res://entities/enemy/enemy.tscn")
 
 var _spawn_timer: float = 0.0
 
+signal spawn_enemy(enemy_instance: EnemyInstance)
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -26,16 +28,17 @@ func _process(delta: float) -> void:
 		_spawn_timer += delta
 		if _spawn_timer >= spawn_rate:
 			_spawn_timer = 0.0
-			spawn_enemy()
+			queue_spawn_enemy()
 
 
 ## Spawns a single enemy at a random position around the origin (0,0).
-func spawn_enemy() -> void:
+func queue_spawn_enemy() -> void:
 	var spawn_position = get_circular_spawn_position()
-	var enemy = enemy_scene.instantiate()
-	enemy.global_position = spawn_position
-	
-	add_child(enemy)
+	# var enemy = enemy_scene.instantiate()
+	# enemy.global_position = spawn_position
+	# add_child(enemy)
+	var enemy_instance = EnemyInstance.new(spawn_position)
+	spawn_enemy.emit(enemy_instance)
 
 
 ## Calculates a spawn position in a circle around the origin (0,0).
