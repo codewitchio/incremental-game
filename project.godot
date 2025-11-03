@@ -25,10 +25,6 @@ Strings="*res://systems/data/strings.gd"
 Signals="*res://systems/data/signals.gd"
 Store="*res://systems/data/store.gd"
 
-[display]
-
-mouse_cursor/custom_image="uid://umwyualrswdc"
-
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/maaacks_menus_template/plugin.cfg")
@@ -52,5 +48,6 @@ copy_path="res://menus/"
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=2
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
