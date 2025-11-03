@@ -1,9 +1,6 @@
 class_name EnemySpawner
 extends Node2D
 
-## The enemy scene to spawn.
-var enemy_scene: PackedScene = preload("res://entities/enemy/enemy.tscn")
-
 ## Spawn rate in seconds. Set to 0 to disable automatic spawning.
 @export var spawn_rate: float = 0.2
 
@@ -34,9 +31,6 @@ func _process(delta: float) -> void:
 ## Spawns a single enemy at a random position around the origin (0,0).
 func queue_spawn_enemy() -> void:
 	var spawn_position = get_circular_spawn_position()
-	# var enemy = enemy_scene.instantiate()
-	# enemy.global_position = spawn_position
-	# add_child(enemy)
 	var enemy_instance = EnemyInstance.new(spawn_position)
 	spawn_enemy.emit(enemy_instance)
 
