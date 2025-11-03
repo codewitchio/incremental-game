@@ -29,6 +29,13 @@ Store="*res://systems/data/store.gd"
 
 enabled=PackedStringArray("res://addons/maaacks_menus_template/plugin.cfg")
 
+[input]
+
+attack={
+"deadzone": 0.2,
+"events": []
+}
+
 [internationalization]
 
 locale/translations=PackedStringArray("res://addons/maaacks_game_template/base/translations/menus_translations.en.translation", "res://addons/maaacks_game_template/base/translations/menus_translations.fr.translation", "res://addons/maaacks_menus_template/base/translations/menus_translations.en.translation", "res://addons/maaacks_menus_template/base/translations/menus_translations.fr.translation")
