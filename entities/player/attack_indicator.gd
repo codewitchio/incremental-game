@@ -48,7 +48,7 @@ func _update_max_distance() -> void:
 func _process(_delta: float) -> void:
 	# Update mouse position in world coordinates
 	mouse_position = get_global_mouse_position()
-	center_position = Vector2.ZERO  # Player is at center
+	center_position = Constants.PlayerPosition
 	
 	
 	# Queue redraw to update indicator

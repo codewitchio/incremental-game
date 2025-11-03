@@ -5,10 +5,10 @@ extends CharacterBody2D
 @export var speed: float = 100.0
 
 ## The target position to move towards (default is center/origin).
-var target_position: Vector2 = Vector2.ZERO
+var target_position: Vector2 = Constants.PlayerPosition
 
 func _ready() -> void:
-	target_position = Vector2.ZERO
+	target_position = Constants.PlayerPosition
 
 
 func _physics_process(_delta: float) -> void:
