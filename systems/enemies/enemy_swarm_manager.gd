@@ -25,6 +25,8 @@ func _ready() -> void:
 	if multimesh == null:
 		push_error("MultiMeshInstance2D requires a MultiMesh resource to be configured in the editor")
 
+	Performance.add_custom_monitor("enemies/count", func(): return enemies.size())
+
 func _process(delta: float) -> void:
 	target_position = Constants.PlayerPosition
 	_update_enemy_positions(delta)
