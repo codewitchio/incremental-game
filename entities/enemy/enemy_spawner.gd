@@ -5,13 +5,13 @@ extends Node2D
 var enemy_scene: PackedScene = preload("res://entities/enemy/enemy.tscn")
 
 ## Spawn rate in seconds. Set to 0 to disable automatic spawning.
-@export var spawn_rate: float = 2.0
+@export var spawn_rate: float = 0.2
 
 ## Minimum distance from center (0,0) to spawn enemies.
 @export var min_spawn_distance: float = 500.0
 
 ## Additional margin beyond visible screen to ensure enemies spawn off-screen.
-@export var spawn_margin: float = 100.0
+@export var spawn_margin: float = 10.0
 
 var _spawn_timer: float = 0.0
 
@@ -34,8 +34,8 @@ func spawn_enemy() -> void:
 	var spawn_position = get_circular_spawn_position()
 	var enemy = enemy_scene.instantiate()
 	enemy.global_position = spawn_position
-	# Add to the same parent as the spawner (typically the Game scene)
-	get_parent().add_child(enemy)
+	
+	add_child(enemy)
 
 
 ## Calculates a spawn position in a circle around the origin (0,0).
@@ -46,26 +46,26 @@ func get_circular_spawn_position() -> Vector2:
 	
 	# Calculate the visible world bounds
 	var viewport_size = viewport.get_visible_rect().size
-	var max_distance_from_center = 0.0
+	var distance_from_center_to_edge = 0.0
 	
 	if camera != null:
 		# Account for camera zoom
 		var zoom_factor = camera.zoom.x  # Assume uniform zoom
 		var world_size = viewport_size / zoom_factor
 		# Distance from center to corner of visible area
-		max_distance_from_center = (world_size.length() / 2.0) + spawn_margin
+		distance_from_center_to_edge = (world_size.length() / 2.0) + spawn_margin
 	else:
 		# Fallback: use viewport size directly
-		max_distance_from_center = (viewport_size.length() / 2.0) + spawn_margin
+		distance_from_center_to_edge = (viewport_size.length() / 2.0) + spawn_margin
 	
 	# Ensure minimum spawn distance
-	max_distance_from_center = max(max_distance_from_center, min_spawn_distance)
+	distance_from_center_to_edge = max(distance_from_center_to_edge, min_spawn_distance)
 	
 	# Random angle around the circle
 	var angle = randf() * TAU  # TAU = 2 * PI
 	
 	# Random distance between min and max
-	var distance = randf_range(min_spawn_distance, max_distance_from_center)
+	# var distance = randf_range(min_spawn_distance, distance_from_center_to_edge)
 	
 	# Calculate position relative to origin (0,0)
-	return Vector2(cos(angle), sin(angle)) * distance
+	return Vector2(cos(angle), sin(angle)) * distance_from_center_to_edge

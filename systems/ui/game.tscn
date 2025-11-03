@@ -81,3 +81,5 @@ indicator_color = Color(0.93333334, 0.93333334, 0.93333334, 1)
 
 [node name="EnemySpawner" type="Node2D" parent="."]
 script = ExtResource("5_yxb3l")
+spawn_rate = 0.1
+spawn_margin = 10.0
