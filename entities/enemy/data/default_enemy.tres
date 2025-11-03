@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="EnemyData" load_steps=3 format=3 uid="uid://be2piirwcsac4"]
+
+[ext_resource type="Script" uid="uid://cgdi7eqh4qphg" path="res://entities/enemy/enemy_data.gd" id="1_0f8hn"]
+[ext_resource type="Texture2D" uid="uid://clmhbmkcn26fb" path="res://entities/enemy/triangle.svg" id="2_w7nlq"]
+
+[resource]
+script = ExtResource("1_0f8hn")
+sprite = ExtResource("2_w7nlq")
+scale = Vector2(0.25, 0.25)
+offset = Vector2(0, -4)
+metadata/_custom_type_script = "uid://cgdi7eqh4qphg"

@@ -1,6 +1,7 @@
 class_name AttackIndicator
 extends Node2D
 
+# TODO: Attack angle is a player stat and should be in some type of Store.
 ## The angle of the attack arc in radians (e.g., PI/4 for 45 degrees)
 @export var attack_angle: float = PI / 6.0  # 30 degrees default
 
