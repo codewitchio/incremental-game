@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://vlfvi2hp3ute" path="res://systems/ui/button.gd" id="2_3msmo"]
 [ext_resource type="Script" uid="uid://b2cy5jwid4j45" path="res://systems/ui/number.gd" id="3_eo8vb"]
 [ext_resource type="Texture2D" uid="uid://bjd33id0fvhuh" path="res://entities/player/circle.svg" id="4_8ybjc"]
-[ext_resource type="Script" path="res://entities/player/attack_indicator.gd" id="5_hqdei"]
+[ext_resource type="Script" uid="uid://coy03ldbbi2jk" path="res://entities/player/attack_indicator.gd" id="5_hqdei"]
 [ext_resource type="Texture2D" uid="uid://clmhbmkcn26fb" path="res://entities/enemy/triangle.svg" id="6_3msmo"]
 [ext_resource type="MultiMesh" uid="uid://bivedxr2y8i7h" path="res://systems/enemies/enemies_multimesh.tres" id="6_eo8vb"]
 [ext_resource type="Script" uid="uid://bmh816uhtwq3t" path="res://systems/enemies/enemy_swarm_manager.gd" id="6_o883i"]

@@ -41,6 +41,11 @@ window/stretch/aspect="expand"
 
 enabled=PackedStringArray("res://addons/loggie/plugin.cfg", "res://addons/maaacks_menus_template/plugin.cfg")
 
+[gui]
+
+theme/default_theme_scale=2.0
+theme/custom="uid://df64srr2x8vbc"
+
 [input]
 
 attack={
