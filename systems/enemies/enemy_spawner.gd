@@ -8,7 +8,7 @@ extends Node2D
 @export var min_spawn_distance: float = 500.0
 
 ## Additional margin beyond visible screen to ensure enemies spawn off-screen.
-@export var spawn_margin: float = 300.0
+@export var spawn_margin: float = 50.0
 
 var _spawn_timer: float = 0.0
 
