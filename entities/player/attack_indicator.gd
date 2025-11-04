@@ -3,7 +3,7 @@ extends Node2D
 
 # TODO: Attack angle is a player stat and should be in some type of Store.
 ## The angle of the attack arc in radians (e.g., PI/4 for 45 degrees)
-@export var attack_angle: float = PI / 6.0  # 30 degrees default
+@export var attack_angle: float = PI / 6.0 # 30 degrees default
 
 ## Color of the indicator lines
 @export var indicator_color: Color = Color(1.0, 1.0, 1.0, 1.0)
@@ -36,7 +36,7 @@ func _update_max_distance() -> void:
 	
 	if camera != null:
 		# Account for camera zoom
-		var zoom_factor = camera.zoom.x  # Assume uniform zoom
+		var zoom_factor = camera.zoom.x # Assume uniform zoom
 		var world_size = viewport_size / zoom_factor
 		# Distance from center to corner of visible area
 		calculated_distance = (world_size.length() / 2.0) + distance_margin
@@ -70,18 +70,18 @@ func _draw() -> void:
 	var right_end = center_position + Vector2(cos(right_angle), sin(right_angle)) * max_draw_distance
 	
 	# Draw the two lines
-	draw_line(center_position, left_end, indicator_color, 2.0)
-	draw_line(center_position, right_end, indicator_color, 2.0)
+	draw_line(center_position, left_end, indicator_color, 2.0, true)
+	draw_line(center_position, right_end, indicator_color, 2.0, true)
 	
 	# Draw arc connecting the lines
 	# This is outside the screen, but 
 	# can be extended later to fill the section
 	draw_arc(
 		center_position,
-		50.0,  # Small radius for arc visualization
+		50.0, # Small radius for arc visualization
 		left_angle,
 		right_angle,
-		32,  # Number of points
+		32, # Number of points
 		indicator_color,
 		2.0
 	)

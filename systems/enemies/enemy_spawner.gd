@@ -8,15 +8,18 @@ extends Node2D
 @export var min_spawn_distance: float = 500.0
 
 ## Additional margin beyond visible screen to ensure enemies spawn off-screen.
-@export var spawn_margin: float = 10.0
+@export var spawn_margin: float = 300.0
 
 var _spawn_timer: float = 0.0
+
+var base_viewport_size: Vector2
 
 signal spawn_enemy(enemy_instance: EnemyInstance)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	await owner.ready
+	base_viewport_size = get_tree().root.content_scale_size
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -38,28 +41,12 @@ func queue_spawn_enemy() -> void:
 ## Calculates a spawn position in a circle around the origin (0,0).
 ## Returns a position that is outside the visible screen area.
 func get_circular_spawn_position() -> Vector2:
-	var viewport = get_viewport()
-	var camera = viewport.get_camera_2d()
-	
-	# Calculate the visible world bounds
-	var viewport_size = viewport.get_visible_rect().size
-	var distance_from_center_to_edge = 0.0
-	
-	if camera != null:
-		# Account for camera zoom
-		var zoom_factor = camera.zoom.x  # Assume uniform zoom
-		var world_size = viewport_size / zoom_factor
-		# Distance from center to corner of visible area
-		distance_from_center_to_edge = (world_size.length() / 2.0) + spawn_margin
-	else:
-		# Fallback: use viewport size directly
-		distance_from_center_to_edge = (viewport_size.length() / 2.0) + spawn_margin
-	
-	# Ensure minimum spawn distance
-	distance_from_center_to_edge = max(distance_from_center_to_edge, min_spawn_distance)
+	# Use base viewport size instead of current viewport size. 
+	# This means the spawn radius stays consistent regardless of window size and resolution.
+	var distance_from_center_to_edge = (base_viewport_size.length() / 2.0) + spawn_margin
 	
 	# Random angle around the circle
-	var angle = randf() * TAU  # TAU = 2 * PI
+	var angle = randf() * TAU # TAU = 2 * PI
 	
 	# Random distance between min and max
 	# var distance = randf_range(min_spawn_distance, distance_from_center_to_edge)
