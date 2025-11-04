@@ -17,13 +17,13 @@ var target_position: Vector2 = Constants.PlayerPosition
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if spawner == null:
-		push_error("EnemySwarmManager requires a spawner to be configured in the editor")
+		Loggie.error("EnemySwarmManager requires a spawner to be configured in the editor")
 
 	spawner.spawn_enemy.connect(_on_spawn_enemy)
 	
 	# Initialize multimesh if not already configured
 	if multimesh == null:
-		push_error("MultiMeshInstance2D requires a MultiMesh resource to be configured in the editor")
+		Loggie.error("MultiMeshInstance2D requires a MultiMesh resource to be configured in the editor")
 
 	Performance.add_custom_monitor("enemies/count", func(): return enemies.size())
 

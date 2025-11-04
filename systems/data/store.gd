@@ -27,7 +27,7 @@ func Set(key: String, value: Variant) -> void:
 ## Gets the value of the given key.
 func Get(key: String) -> Variant:
 	if !Has(key):
-		print("Error: %s is not a valid key" % key)
+		Loggie.error("%s is not a valid key" % key)
 		return null
 
 	return _data[key].get_value()
@@ -47,12 +47,12 @@ func Increment(key: String, amount: float) -> void:
 	if value is float:
 		Set(key, value + amount)
 	else:
-		print("Error: %s is not a float" % key)
+		Loggie.error("%s is not a float" % key)
 
 ## Registers a callback to be called when the value of the given key changes.
 func Subscribe(key: String, callback: Callable) -> void:
 	if !Has(key):
-		print("Error: %s is not a valid key" % key)
+		Loggie.error("%s is not a valid key" % key)
 		return
 
 	_data[key].value_changed.connect(callback)

@@ -24,6 +24,7 @@ ProjectUISoundController="*res://addons/maaacks_menus_template/base/nodes/autolo
 Strings="*res://systems/data/strings.gd"
 Signals="*res://systems/data/signals.gd"
 Store="*res://systems/data/store.gd"
+Loggie="*res://addons/loggie/loggie.gd"
 
 [debug]
 
@@ -31,7 +32,7 @@ gdscript/warnings/unused_signal=0
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/maaacks_menus_template/plugin.cfg")
+enabled=PackedStringArray("res://addons/loggie/plugin.cfg", "res://addons/maaacks_menus_template/plugin.cfg")
 
 [input]
 
