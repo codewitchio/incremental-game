@@ -12,6 +12,7 @@ script = ExtResource("1_w4bnl")
 lifetime = 390.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.93333334, 0.93333334, 0.93333334, 1)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_avmbj")
 
