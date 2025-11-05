@@ -148,7 +148,7 @@ func _handle_enemy_collision_with_player(_enemy_instance: EnemyInstance) -> void
 func _handle_attack_colission_with_enemy(enemy_rid: RID, damage: float) -> void:
 	# TODO: VFX, etc.
 
-	if enemy_rid.is_valid():
+	if enemy_rid.is_valid() and enemy_instances.has(enemy_rid):
 		var enemy: EnemyInstance = enemy_instances[enemy_rid]
 		enemy.take_damage(damage)
 		if enemy.is_dead():
