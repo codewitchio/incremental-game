@@ -30,8 +30,7 @@ func _init(world_space: RID, pos: Vector2 = Vector2.ZERO, data: EnemyData = defa
 
 ## Sets up the collision area for this enemy instance.
 func _setup_collision_area() -> void:
-	# Calculate enemy collision radius (scale collision radius by sprite scale)
-	var enemy_radius = collision_radius * max(scale.x, scale.y)
+	var enemy_radius = EnemyData.get_scaled_collision_radius(collision_radius, scale)
 	
 	# Create circle shape for this enemy
 	var shape_rid = PhysicsServer2D.circle_shape_create()

@@ -19,3 +19,7 @@ extends Resource
 
 ## Collision shape radius.
 @export var collision_radius: float = 15.0
+
+# Since enemies are not actually nodes, scaling requires separate handling for sprite and collision radius.
+static func get_scaled_collision_radius(_collision_radius: float, _scale: Vector2) -> float:
+	return _collision_radius * max(_scale.x, _scale.y)

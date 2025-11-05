@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://rlf025kn28q0"]
+
+[ext_resource type="Script" uid="uid://dabco1w80iw28" path="res://entities/enemy/enemy_preview.gd" id="1_daer1"]
+[ext_resource type="Resource" uid="uid://be2piirwcsac4" path="res://entities/enemy/data/default_enemy.tres" id="2_72lt3"]
+
+[node name="EnemyPreview" type="Node2D"]
+script = ExtResource("1_daer1")
+enemy_data = ExtResource("2_72lt3")
