@@ -9,6 +9,9 @@ extends Area2D
 ## Timer to handle projectile lifetime.
 var lifetime_timer: Timer
 
+## Direction vector for the attack movement (normalized)
+var direction: Vector2 = Vector2.UP
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Create and configure lifetime timer
@@ -23,7 +26,6 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	var direction = Vector2.UP
 	global_position += direction * speed * delta
 
 func _on_lifetime_timeout() -> void:

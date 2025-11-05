@@ -15,7 +15,7 @@ var max_draw_distance: float = 0.0
 @export var distance_margin: float = 100.0
 
 var mouse_position: Vector2 = Vector2.ZERO
-var center_position: Vector2 = Vector2.ZERO
+var center_position: Vector2 = Constants.PlayerPosition
 
 
 func _ready() -> void:
@@ -49,8 +49,6 @@ func _update_max_distance() -> void:
 func _process(_delta: float) -> void:
 	# Update mouse position in world coordinates
 	mouse_position = get_global_mouse_position()
-	center_position = Constants.PlayerPosition
-	
 	
 	# Queue redraw to update indicator
 	queue_redraw()
