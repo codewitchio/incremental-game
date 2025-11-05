@@ -16,10 +16,13 @@ var base_viewport_size: Vector2
 
 signal spawn_enemy(enemy_instance: EnemyInstance)
 
+var world_space: RID 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	await owner.ready
 	base_viewport_size = get_tree().root.content_scale_size
+	world_space = get_world_2d().get_space()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -34,7 +37,7 @@ func _process(delta: float) -> void:
 ## Spawns a single enemy at a random position around the origin (0,0).
 func queue_spawn_enemy() -> void:
 	var spawn_position = get_circular_spawn_position()
-	var enemy_instance = EnemyInstance.new(spawn_position)
+	var enemy_instance = EnemyInstance.new(world_space, spawn_position)
 	spawn_enemy.emit(enemy_instance)
 
 

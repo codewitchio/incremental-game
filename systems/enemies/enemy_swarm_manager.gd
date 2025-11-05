@@ -1,31 +1,38 @@
-## A multimesh instance that displays enemies and handles collision detection.
+## A multimesh instance that displays enemy_instances and handles collision detection.
 class_name EnemySwarmManager
 extends MultiMeshInstance2D
 
 @export var spawner: EnemySpawner
 
-## Array of active enemy instances.
-var enemies: Array[EnemyInstance] = []
+## Dictionary mapping collision area RIDs to EnemyInstance objects.
+var enemy_instances: Dictionary = {}
 
-## Target position for enemies to move towards (default is player position).
+## Target position for enemy_instances to move towards (default is player position).
 var target_position: Vector2 = Constants.PlayerPosition
 
-## Player collision radius for collision detection.
-@export var player_collision_radius: float = 50.0
-# TODO: Collision radius is a player stat and should be in some type of Store.
+## Reference to player's collision shape node.
+@export var player_collision_shape: CollisionShape2D
+
+## PhysicsServer2D space state for collision queries (uses world's default space).
+var space_state: PhysicsDirectSpaceState2D = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if spawner == null:
 		Loggie.error("EnemySwarmManager requires a spawner to be configured in the editor")
 
-	spawner.spawn_enemy.connect(_on_spawn_enemy)
+	if player_collision_shape == null:
+		Loggie.error("EnemySwarmManager requires a player_collision_shape to be configured in the editor")
 	
-	# Initialize multimesh if not already configured
 	if multimesh == null:
 		Loggie.error("MultiMeshInstance2D requires a MultiMesh resource to be configured in the editor")
 
-	Performance.add_custom_monitor("enemies/count", func(): return enemies.size())
+	spawner.spawn_enemy.connect(_on_spawn_enemy)
+	Performance.add_custom_monitor("enemies/count", func(): return enemy_instances.size())
+	
+	# Use the world's default physics space (same space the player is in)
+	var world_space = get_world_2d().get_space()
+	space_state = PhysicsServer2D.space_get_direct_state(world_space)
 
 func _process(delta: float) -> void:
 	target_position = Constants.PlayerPosition
@@ -33,32 +40,40 @@ func _process(delta: float) -> void:
 	_check_collisions()
 	_update_multimesh()
 
+func _exit_tree() -> void:
+	# Clean up physics resources
+	_cleanup_physics_collision()
+
 ## Handles new enemy spawns from the spawner.
 func _on_spawn_enemy(enemy_instance: EnemyInstance) -> void:
-	enemies.append(enemy_instance)
+	# Register enemy instance in dictionary
+	enemy_instances[enemy_instance.collision_area_rid] = enemy_instance
 
 ## Updates enemy positions based on movement logic.
 func _update_enemy_positions(delta: float) -> void:
-	for enemy in enemies:
+	for enemy in enemy_instances.values():
 		# Calculate direction to target
 		var direction = (target_position - enemy.position).normalized()
 		
 		# Update position based on speed
 		enemy.position += direction * enemy.speed * delta
+		
+		# Update physics collision position
+		enemy.update_collision_position()
 
 ## Updates the multimesh instance with current enemy positions and transforms.
 func _update_multimesh() -> void:
 	if multimesh == null:
 		return
 	
-	var instance_count = enemies.size()
+	var instance_count = enemy_instances.size()
 	
 	# Set instance count (multimesh will resize if needed)
 	multimesh.instance_count = instance_count
 	
 	# Update transform for each enemy instance
-	for i in range(instance_count):
-		var enemy = enemies[i]
+	var i = 0
+	for enemy in enemy_instances.values():
 		
 		# Calculate direction to target and rotation angle
 		var direction = (target_position - enemy.position)
@@ -81,34 +96,58 @@ func _update_multimesh() -> void:
 			instance_transform.origin += instance_transform.basis_xform(enemy.sprite_offset)
 		
 		multimesh.set_instance_transform_2d(i, instance_transform)
+		i += 1
 
-## Checks for collisions between enemies and the player.
+## Checks for collisions between enemy_instances and the player using PhysicsServer2D.
 func _check_collisions() -> void:
+	if not space_state:
+		return
+	
 	var player_position = Constants.PlayerPosition
 	
-	# Collect enemies to remove (avoid modifying array while iterating)
+	# Collect enemy_instances to remove (avoid modifying array while iterating)
 	var enemies_to_remove: Array[EnemyInstance] = []
 	
-	for enemy in enemies:
-		# Calculate collision radius for this enemy (scale collision radius by sprite scale)
-		var enemy_radius = enemy.collision_radius * max(enemy.scale.x, enemy.scale.y)
-		var combined_radius = player_collision_radius + enemy_radius
-		var combined_radius_squared = combined_radius * combined_radius
-		
-		var distance_squared = enemy.position.distance_squared_to(player_position)
-		
-		if distance_squared <= combined_radius_squared:
+	var query = PhysicsShapeQueryParameters2D.new()
+	query.shape = player_collision_shape.shape
+	query.transform = Transform2D.IDENTITY
+	query.transform.origin = player_position
+	query.collision_mask = Constants.CollisionLayer_Enemies 
+	query.collide_with_areas = true  # Query areas instead of bodies
+	query.exclude = []  # Don't exclude - we filter by checking enemy_instances. 
+	
+	# Query for intersecting areas
+	var results = space_state.intersect_shape(query)
+	
+	# Process collision results
+	for result in results:
+		var rid = result.rid
+		# Check if this is one of our enemy areas
+		if enemy_instances.has(rid):
+			# Loggie.debug("Collision with enemy")
+			var enemy = enemy_instances[rid]
 			_handle_enemy_collision_with_player(enemy)
 			enemies_to_remove.append(enemy)
 	
-	# Remove collided enemies
+	# Remove collided enemy_instances
 	for enemy in enemies_to_remove:
-		enemies.erase(enemy)
+		enemy_instances.erase(enemy.collision_area_rid)
+		enemy.cleanup_collision()
 	
-	# Update multimesh instance count if any enemies were removed
+	# Update multimesh instance count if any enemy_instances were removed
 	if enemies_to_remove.size() > 0:
-		multimesh.instance_count = enemies.size()
+		multimesh.instance_count = enemy_instances.size()
 
 func _handle_enemy_collision_with_player(_enemy_instance: EnemyInstance) -> void:
 	# TODO: Damage, VFX, etc.
 	pass
+
+
+## Cleans up all physics resources.
+func _cleanup_physics_collision() -> void:
+	# Remove all enemy collision areas
+	for enemy in enemy_instances.values():
+		enemy.cleanup_collision()
+	enemy_instances.clear()
+	
+	space_state = null

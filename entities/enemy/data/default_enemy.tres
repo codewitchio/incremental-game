@@ -5,7 +5,8 @@
 
 [resource]
 script = ExtResource("1_0f8hn")
+speed = 150.0
 sprite = ExtResource("2_w7nlq")
 scale = Vector2(0.25, 0.25)
-offset = Vector2(0, -4)
+sprite_offset = Vector2(0, -4)
 metadata/_custom_type_script = "uid://cgdi7eqh4qphg"

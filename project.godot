@@ -59,7 +59,9 @@ locale/translations=PackedStringArray("res://addons/maaacks_game_template/base/t
 
 [layer_names]
 
-2d_physics/layer_2="PLAYER"
+2d_physics/layer_1="Player"
+2d_physics/layer_2="Enemies"
+2d_physics/layer_3="Projectiles"
 
 [loggie]
 
