@@ -34,6 +34,8 @@ func _ready() -> void:
 	var world_space = get_world_2d().get_space()
 	space_state = PhysicsServer2D.space_get_direct_state(world_space)
 
+	Signals.attack_colission_with_enemy.connect(_handle_attack_colission_with_enemy)
+
 func _process(delta: float) -> void:
 	target_position = Constants.PlayerPosition
 	_update_enemy_positions(delta)
@@ -108,6 +110,8 @@ func _check_collisions() -> void:
 	# Collect enemy_instances to remove (avoid modifying array while iterating)
 	var enemies_to_remove: Array[EnemyInstance] = []
 	
+	# To be honest, we could do this with a _on_area_shape_entered on the player.
+	# Not sure how big the performance difference is, but I wanted to try this approach.
 	var query = PhysicsShapeQueryParameters2D.new()
 	query.shape = player_collision_shape.shape
 	query.transform = Transform2D.IDENTITY
@@ -131,17 +135,30 @@ func _check_collisions() -> void:
 	
 	# Remove collided enemy_instances
 	for enemy in enemies_to_remove:
-		enemy_instances.erase(enemy.collision_area_rid)
-		enemy.cleanup_collision()
+		_erase_enemy(enemy)
 	
 	# Update multimesh instance count if any enemy_instances were removed
 	if enemies_to_remove.size() > 0:
 		multimesh.instance_count = enemy_instances.size()
 
 func _handle_enemy_collision_with_player(_enemy_instance: EnemyInstance) -> void:
-	# TODO: Damage, VFX, etc.
+	# TODO: Damage, VFX, etc. Maybe move to a signal and handle in the player script.
 	pass
 
+func _handle_attack_colission_with_enemy(enemy_rid: RID, damage: float) -> void:
+	# TODO: VFX, etc.
+
+	if enemy_rid.is_valid():
+		var enemy: EnemyInstance = enemy_instances[enemy_rid]
+		enemy.take_damage(damage)
+		if enemy.is_dead():
+			_erase_enemy(enemy)
+	pass
+
+## Erases an enemy and cleans up its collision area.
+func _erase_enemy(enemy_instance: EnemyInstance) -> void:
+	enemy_instances.erase(enemy_instance.collision_area_rid)
+	enemy_instance.cleanup_collision()
 
 ## Cleans up all physics resources.
 func _cleanup_physics_collision() -> void:

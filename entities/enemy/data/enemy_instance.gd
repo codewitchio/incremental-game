@@ -43,8 +43,10 @@ func _setup_collision_area() -> void:
 	
 	# Set collision layer so areas are detected by queries
 	PhysicsServer2D.area_set_collision_layer(collision_area_rid, Constants.CollisionLayer_Enemies)
-	PhysicsServer2D.area_set_collision_mask(collision_area_rid, 0)  # Enemies don't need to detect anything
+	PhysicsServer2D.area_set_collision_mask(collision_area_rid, Constants.CollisionLayer_Projectiles)  # Enemies don't need to detect anything
 	
+	PhysicsServer2D.area_set_monitorable(collision_area_rid, true)
+
 	# Set initial transform
 	var area_transform = Transform2D.IDENTITY
 	area_transform.origin = position
@@ -74,3 +76,10 @@ func cleanup_collision() -> void:
 		# Free the area
 		PhysicsServer2D.free_rid(collision_area_rid)
 		collision_area_rid = RID()
+
+## Note: This does not handle death/removal. Combine with is_dead() to handle death.
+func take_damage(damage: float) -> void:
+	current_health -= damage
+
+func is_dead() -> bool:
+	return current_health <= 0

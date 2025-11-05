@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://05bxyv1k8afd"]
+[gd_scene load_steps=12 format=3 uid="uid://05bxyv1k8afd"]
 
 [ext_resource type="Theme" uid="uid://df64srr2x8vbc" path="res://systems/ui/theme/theme.tres" id="1_dft0o"]
 [ext_resource type="Script" uid="uid://vlfvi2hp3ute" path="res://systems/ui/button.gd" id="2_3msmo"]
@@ -9,6 +9,7 @@
 [ext_resource type="MultiMesh" uid="uid://bivedxr2y8i7h" path="res://systems/enemies/enemies_multimesh.tres" id="6_eo8vb"]
 [ext_resource type="Script" uid="uid://bmh816uhtwq3t" path="res://systems/enemies/enemy_swarm_manager.gd" id="6_o883i"]
 [ext_resource type="Script" uid="uid://c63iwymrphneu" path="res://systems/enemies/enemy_spawner.gd" id="7_p01kn"]
+[ext_resource type="PackedScene" uid="uid://w53wwlx3hi3s" path="res://entities/attacks/basic_circle_attack.tscn" id="10_8ybjc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6o2s0"]
 radius = 50.0
@@ -94,3 +95,6 @@ player_collision_shape = NodePath("../Player/CollisionShape2D")
 [node name="EnemySpawner" type="Node2D" parent="EnemyController"]
 script = ExtResource("7_p01kn")
 spawn_rate = 0.02
+
+[node name="CircleAttack" parent="." instance=ExtResource("10_8ybjc")]
+position = Vector2(134, 25)
