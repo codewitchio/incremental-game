@@ -18,15 +18,35 @@ signal spawn_enemy(enemy_instance: EnemyInstance)
 
 var world_space: RID 
 
+var _is_enabled: bool = true
+
+func enable() -> void:
+	_is_enabled = true
+	Loggie.info("Enabled")
+
+func disable() -> void:
+	_is_enabled = false
+	Loggie.info("Disabled")
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	await owner.ready
 	base_viewport_size = get_tree().root.content_scale_size
 	world_space = get_world_2d().get_space()
 
+	Signals.game_state_changed.connect(_on_game_state_changed)
+
+func _on_game_state_changed(state: Game.GameState) -> void:
+	if state == Game.GameState.ROUND_ENDING:
+		disable()
+	elif state == Game.GameState.PLAYING_ROUND:
+		enable()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if not _is_enabled:
+		return
+	
 	if spawn_rate > 0.0:
 		_spawn_timer += delta
 		if _spawn_timer >= spawn_rate:

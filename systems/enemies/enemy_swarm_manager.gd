@@ -16,6 +16,17 @@ var target_position: Vector2 = Constants.PlayerPosition
 ## PhysicsServer2D space state for collision queries (uses world's default space).
 var space_state: PhysicsDirectSpaceState2D = null
 
+var _is_enabled: bool = true
+
+func enable() -> void:
+	_is_enabled = true
+	Loggie.info("Enabled")
+
+func disable() -> void:
+	_erase_all_enemies()
+	_is_enabled = false
+	Loggie.info("Disabled")
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if spawner == null:
@@ -35,8 +46,18 @@ func _ready() -> void:
 	space_state = PhysicsServer2D.space_get_direct_state(world_space)
 
 	Signals.attack_colission_with_enemy.connect(_handle_attack_colission_with_enemy)
+	Signals.game_state_changed.connect(_on_game_state_changed)
+
+func _on_game_state_changed(state: Game.GameState) -> void:
+	if state == Game.GameState.ROUND_ENDING:
+		disable()
+	elif state == Game.GameState.PLAYING_ROUND:
+		enable()
 
 func _process(delta: float) -> void:
+	if not _is_enabled:
+		return
+	
 	target_position = Constants.PlayerPosition
 	_update_enemy_positions(delta)
 	_check_collisions()
@@ -48,6 +69,9 @@ func _exit_tree() -> void:
 
 ## Handles new enemy spawns from the spawner.
 func _on_spawn_enemy(enemy_instance: EnemyInstance) -> void:
+	if not _is_enabled:
+		return
+	
 	# Register enemy instance in dictionary
 	enemy_instances[enemy_instance.collision_area_rid] = enemy_instance
 
@@ -168,3 +192,12 @@ func _cleanup_physics_collision() -> void:
 	enemy_instances.clear()
 	
 	space_state = null
+
+
+# Simply deletes all enemies.
+func _erase_all_enemies() -> void:
+	# TODO: Death vfx or something.
+	for enemy in enemy_instances.values():	
+		_erase_enemy(enemy)
+	
+	multimesh.instance_count = 0

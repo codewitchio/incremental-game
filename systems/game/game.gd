@@ -16,11 +16,16 @@ var state: GameState = GameState.FIRST_START:
     set(value):
         if state != value:
             state = value
-            Loggie.info("Game state changed to:", GameState.keys()[value])
+            Loggie.info("Game state:", GameState.keys()[value])
+            Signals.game_state_changed.emit(state)
 
 func _ready() -> void:
     Signals.player_died.connect(_on_player_died)
 
 func _on_player_died() -> void:
-    Loggie.info("Player died")
+    _end_round()
+
+func _end_round() -> void:
     state = GameState.ROUND_ENDING
+
+    # Animations?

@@ -7,3 +7,5 @@ signal enemy_collision_with_player(enemy_instance: EnemyInstance)
 signal enemy_died(enemy_instance: EnemyInstance)
 
 signal player_died()
+
+signal game_state_changed(state: Game.GameState)

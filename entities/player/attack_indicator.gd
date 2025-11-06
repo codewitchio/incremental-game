@@ -17,7 +17,6 @@ var max_draw_distance: float = 0.0
 var mouse_position: Vector2 = Vector2.ZERO
 var center_position: Vector2 = Constants.PlayerPosition
 
-
 func _ready() -> void:
 	# Ensure this draws on top of other game elements
 	z_index = 10
