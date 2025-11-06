@@ -1,10 +1,5 @@
-# Autoloaded as Store
-extends Node
-
-# This is currently a global singleton, but if we want to store this we could make it a resource. 
-# Unfortunately, autoloads have to be nodes. So we would need a wrapper. Then again, Store.Upgrades isn't so bad.
-# The functionality here would then move to a GenericStore class. And the resources would be something like StoreResource.
-# Is that too generic to be useful? Not sure. 
+class_name Store
+extends Resource
 
 # Also, consider how a "lifetime score earned" stat would work. Something that subscribes to changes of score, but only counts positive changes?
 # Where would we save it? In another StoreResource? Or in the same one, but with a different key? It could also be built into StoreValue, but I don't
@@ -13,16 +8,26 @@ extends Node
 # How can we use the principles of composition in generic classes? I guess StoreValue could have a boolean for whether it is tracked or not, and it communicates
 # with the stats store. So logic is in StoreValue without the actual values having to be. 
 
-# What other stats would we want to track? Time based stats like "score per second" is definitely one. 
-# How should we? Compare delta "lifetime" score with delta time?
+# Or we just hardcode it by adding the value to two separate stores. Keep it simple for now. 
 
-var _data: Dictionary = {
-	"score": StoreValue.new(0.0),
-}
+
+# Actually, it turns out that the StoreValue abstraction complicates things a bit. It means we can't easily subscribe to things that haven't been set yet, etc.
+# But maybe it's fine to enforce requiring them to exist.
+
+var _data: Dictionary
+
+func _init(inital_data: Dictionary = {}) -> void:
+	_data = inital_data
+	for key in inital_data:
+		var value = inital_data[key]
+		_data[key] = StoreValue.new(value)
 
 ## Sets the value of the given key to the given value.
 func Set(key: String, value: Variant) -> void:
-	_data[key].set_value(value)
+	if _data.has(key):
+		_data[key].set_value(value)
+	else:
+		_data[key] = StoreValue.new(value)
 
 ## Gets the value of the given key.
 func Get(key: String) -> Variant:

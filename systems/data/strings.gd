@@ -2,4 +2,4 @@
 ## This file contains string defintions for all important stored values
 extends Node
 
-const Score = "score"
+const Stat_EnemiesKilled = "enemies_killed"

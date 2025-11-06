@@ -1,7 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://05bxyv1k8afd"]
 
 [ext_resource type="Theme" uid="uid://df64srr2x8vbc" path="res://systems/ui/theme/theme.tres" id="1_dft0o"]
-[ext_resource type="Script" uid="uid://vlfvi2hp3ute" path="res://systems/ui/button.gd" id="2_3msmo"]
 [ext_resource type="Script" uid="uid://b2cy5jwid4j45" path="res://systems/ui/number.gd" id="3_eo8vb"]
 [ext_resource type="Texture2D" uid="uid://bjd33id0fvhuh" path="res://entities/player/circle.svg" id="4_8ybjc"]
 [ext_resource type="Script" uid="uid://coy03ldbbi2jk" path="res://entities/player/attack_indicator.gd" id="5_hqdei"]
@@ -10,6 +9,7 @@
 [ext_resource type="Script" uid="uid://c2y3sssa81tpf" path="res://entities/player/attack_handler.gd" id="6_hqdei"]
 [ext_resource type="Script" uid="uid://bmh816uhtwq3t" path="res://systems/enemies/enemy_swarm_manager.gd" id="6_o883i"]
 [ext_resource type="Script" uid="uid://c63iwymrphneu" path="res://systems/enemies/enemy_spawner.gd" id="7_p01kn"]
+[ext_resource type="Script" uid="uid://bce7abeceey6r" path="res://systems/data/statistics_tracker.gd" id="11_hqdei"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6o2s0"]
 radius = 50.0
@@ -31,20 +31,6 @@ offset_bottom = 40.0
 grow_horizontal = 2
 theme = ExtResource("1_dft0o")
 
-[node name="Button" type="Button" parent="Background/UI"]
-visible = false
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -48.0
-offset_right = 48.0
-offset_bottom = 31.0
-grow_horizontal = 2
-text = "Click me <3"
-script = ExtResource("2_3msmo")
-store_key = "score"
-
 [node name="Number" type="Label" parent="Background/UI"]
 layout_mode = 1
 anchors_preset = 5
@@ -57,7 +43,7 @@ grow_horizontal = 2
 text = "0"
 horizontal_alignment = 1
 script = ExtResource("3_eo8vb")
-store_key = "score"
+store_key = "enemies_killed"
 
 [node name="ColorRect" type="ColorRect" parent="Background"]
 anchors_preset = 15
@@ -98,3 +84,7 @@ player_collision_shape = NodePath("../Player/CollisionShape2D")
 [node name="EnemySpawner" type="Node2D" parent="EnemyController"]
 script = ExtResource("7_p01kn")
 spawn_rate = 0.02
+
+[node name="StatisticsTracker" type="Node" parent="."]
+script = ExtResource("11_hqdei")
+metadata/_custom_type_script = "uid://bce7abeceey6r"

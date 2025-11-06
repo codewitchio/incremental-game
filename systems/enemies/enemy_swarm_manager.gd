@@ -152,6 +152,7 @@ func _handle_attack_colission_with_enemy(enemy_rid: RID, damage: float) -> void:
 		var enemy: EnemyInstance = enemy_instances[enemy_rid]
 		enemy.take_damage(damage)
 		if enemy.is_dead():
+			Signals.enemy_died.emit(enemy)
 			_erase_enemy(enemy)
 	pass
 

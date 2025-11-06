@@ -9,8 +9,8 @@ func _ready() -> void:
 		print("Button is missing a store key")
 		return
 
-	self.pressed.connect(_on_pressed)
+	# self.pressed.connect(_on_pressed)
 
 
-func _on_pressed() -> void:
-	Store.Increment(store_key, 1)
+# func _on_pressed() -> void:
+	# Store.Increment(store_key, 1)
