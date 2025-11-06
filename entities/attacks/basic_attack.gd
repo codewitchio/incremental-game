@@ -4,7 +4,10 @@ extends Area2D
 @export var speed: float = 1000.0
 @export var damage: float = 1.0
 ## How long the projectile exists before being destroyed.
-@export var lifetime: float = 3.0
+@export var lifetime: float = 1.0
+
+@export var start_scale: float = 0.1
+@export var end_scale: float = 12.5
 
 ## Timer to handle projectile lifetime.
 var lifetime_timer: Timer
@@ -27,6 +30,13 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	global_position += direction * speed * delta
+
+	# Rotate to match direction.
+	rotation = direction.angle()
+
+	# Slowly grow in size over lifetime. 
+	var ratio = 1 - lifetime_timer.time_left / lifetime 
+	scale = Vector2.ONE * lerp(start_scale, end_scale, ratio)
 
 func _on_lifetime_timeout() -> void:
 	queue_free()

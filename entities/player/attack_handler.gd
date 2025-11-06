@@ -2,7 +2,7 @@
 class_name AttackHandler
 extends Node2D
 
-@export var attack_scene: PackedScene = preload("res://entities/attacks/basic_circle_attack.tscn") as PackedScene
+@export var attack_scene: PackedScene = preload("res://entities/attacks/basic_attack.tscn") as PackedScene
 
 ## Speed of the attack in attacks per second.
 @export var attack_speed: float = 1.0 # TODO: this is a player stat that should be in the store

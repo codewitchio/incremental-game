@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://w53wwlx3hi3s"]
+
+[ext_resource type="Script" uid="uid://d3fqket7b302" path="res://entities/attacks/basic_attack.gd" id="1_2ddqb"]
+[ext_resource type="Texture2D" uid="uid://dw3jd8vqqg4b3" path="res://entities/attacks/wave.png" id="2_x7hq1"]
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_avmbj"]
+points = PackedVector2Array(19, 14, 27, -13, -6.993822e-07, -16, -27.000002, -12.999998, -19, 14)
+
+[node name="CircleAttack" type="Area2D"]
+collision_layer = 2
+collision_mask = 7
+script = ExtResource("1_2ddqb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.93333334, 0.93333334, 0.93333334, 1)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_x7hq1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(12, 0)
+rotation = 1.5707964
+shape = SubResource("ConvexPolygonShape2D_avmbj")
