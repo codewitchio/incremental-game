@@ -1,8 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://05bxyv1k8afd"]
+[gd_scene load_steps=14 format=3 uid="uid://05bxyv1k8afd"]
 
 [ext_resource type="Theme" uid="uid://df64srr2x8vbc" path="res://systems/ui/theme/theme.tres" id="1_dft0o"]
+[ext_resource type="Script" uid="uid://bncmmwhmf2lwo" path="res://systems/game/game.gd" id="1_o883i"]
 [ext_resource type="Script" uid="uid://b2cy5jwid4j45" path="res://systems/ui/number.gd" id="3_eo8vb"]
 [ext_resource type="Texture2D" uid="uid://bjd33id0fvhuh" path="res://entities/player/circle.svg" id="4_8ybjc"]
+[ext_resource type="Script" uid="uid://b4hmdvqv5510w" path="res://entities/player/player.gd" id="4_p01kn"]
 [ext_resource type="Script" uid="uid://coy03ldbbi2jk" path="res://entities/player/attack_indicator.gd" id="5_hqdei"]
 [ext_resource type="Texture2D" uid="uid://clmhbmkcn26fb" path="res://entities/enemy/triangle.svg" id="6_3msmo"]
 [ext_resource type="MultiMesh" uid="uid://bivedxr2y8i7h" path="res://systems/enemies/enemies_multimesh.tres" id="6_eo8vb"]
@@ -15,6 +17,7 @@
 radius = 50.0
 
 [node name="Game" type="Node2D"]
+script = ExtResource("1_o883i")
 
 [node name="Background" type="CanvasLayer" parent="."]
 layer = -1
@@ -58,6 +61,7 @@ color = Color(0.043039158, 0.04303915, 0.04303915, 1)
 [node name="Player" type="CharacterBody2D" parent="."]
 collision_layer = 0
 collision_mask = 0
+script = ExtResource("4_p01kn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource("CircleShape2D_6o2s0")

@@ -142,8 +142,7 @@ func _check_collisions() -> void:
 		multimesh.instance_count = enemy_instances.size()
 
 func _handle_enemy_collision_with_player(_enemy_instance: EnemyInstance) -> void:
-	# TODO: Damage, VFX, etc. Maybe move to a signal and handle in the player script.
-	pass
+	Signals.enemy_collision_with_player.emit(_enemy_instance)
 
 func _handle_attack_colission_with_enemy(enemy_rid: RID, damage: float) -> void:
 	# TODO: VFX, etc.
