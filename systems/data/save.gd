@@ -6,6 +6,7 @@ const StatisticsPath = "user://statistics.tres"
 
 var statistics: Store
 
+# I guess this could be a resource if we changed some things. Easier without StoreValue.
 var INITIAL_STATISTICS = {
     Strings.Stat_EnemiesKilled: 0.0 
 } as Dictionary
