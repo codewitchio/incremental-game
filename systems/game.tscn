@@ -119,10 +119,18 @@ ignore_time_scale = true
 script = ExtResource("11_hqdei")
 metadata/_custom_type_script = "uid://bce7abeceey6r"
 
-[node name="Background" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -1
 
-[node name="UI" type="Control" parent="Background"]
+[node name="Background" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.043039158, 0.04303915, 0.04303915, 1)
+
+[node name="UI" type="Control" parent="CanvasLayer"]
 z_index = 1
 layout_mode = 3
 anchors_preset = 15
@@ -132,7 +140,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_dft0o")
 
-[node name="enemies_killed" type="Label" parent="Background/UI"]
+[node name="enemies_killed" type="Label" parent="CanvasLayer/UI"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -146,16 +154,8 @@ horizontal_alignment = 1
 script = ExtResource("3_eo8vb")
 store_key = "enemies_killed"
 
-[node name="Shop" parent="Background/UI" instance=ExtResource("4_jqpt0")]
+[node name="Shop" parent="CanvasLayer/UI" instance=ExtResource("4_jqpt0")]
 layout_mode = 1
-
-[node name="ColorRect" type="ColorRect" parent="Background"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.043039158, 0.04303915, 0.04303915, 1)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
