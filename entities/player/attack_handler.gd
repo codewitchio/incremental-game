@@ -44,6 +44,7 @@ func _process(delta: float) -> void:
 	# Check for continuous attack input while button is held
 	if Input.is_action_pressed("attack") and _attack_is_ready() and _is_enabled:
 		_spawn_attack()
+
 ## Spawns an attack instance aiming towards the mouse cursor.
 func _spawn_attack() -> void:
 	if attack_scene == null:
