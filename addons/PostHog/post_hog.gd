@@ -17,8 +17,7 @@ signal api_response(response: Variant)
 ## Properties included in every event.
 var auto_include_properties = {
 	"game_name": "incremental-game",
-	# TODO: Add environment/export variables for this.
-	# "game_version": "0.1.0",
+	"game_version": ProjectSettings.get_setting("application/config/version", "0.0.0"),
 }
 
 ## Whether the platform should be included in every event.
