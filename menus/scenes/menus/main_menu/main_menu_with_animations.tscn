@@ -1,9 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://b3e6tligldrmy"]
+[gd_scene load_steps=19 format=3 uid="uid://b3e6tligldrmy"]
 
 [ext_resource type="PackedScene" uid="uid://c6k5nnpbypshi" path="res://addons/maaacks_menus_template/base/nodes/menus/main_menu/main_menu.tscn" id="1_sbi1w"]
 [ext_resource type="Script" uid="uid://cfsh1vdh3qifw" path="res://menus/scenes/menus/main_menu/main_menu_with_animations.gd" id="2_ytpwg"]
 [ext_resource type="PackedScene" uid="uid://cjru4dfycdpww" path="res://menus/scenes/overlaid_menus/main_menu_options_overlaid_menu.tscn" id="3_8i6b8"]
 [ext_resource type="PackedScene" uid="uid://sig11q3rpkyf" path="res://menus/scenes/overlaid_menus/main_menu_credits_overlaid_menu.tscn" id="4_t55r5"]
+[ext_resource type="Texture2D" uid="uid://1d2ow3c6dx5f" path="res://menus/assets/godot_engine_logo/logo_small_monochrome_dark.svg" id="5_ytpwg"]
 
 [sub_resource type="Animation" id="1"]
 resource_name = "Intro"
@@ -329,8 +330,35 @@ tree_root = SubResource("AnimationNodeStateMachine_vikuh")
 anim_player = NodePath("../MenuAnimationPlayer")
 parameters/conditions/intro_done = false
 
+[node name="BackgroundColorRect" type="ColorRect" parent="." index="4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.043039158, 0.04303915, 0.04303915, 1)
+
+[node name="BackgroundTextureRect" parent="." index="5"]
+visible = false
+modulate = Color(0.043039158, 0.04303915, 0.04303915, 1)
+
 [node name="VersionContainer" parent="VersionMargin" index="0"]
 modulate = Color(1, 1, 1, 0)
+
+[node name="GodotIconContainer" type="Control" parent="VersionMargin" index="1"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VersionMargin/GodotIconContainer" index="0"]
+modulate = Color(0.93333334, 0.93333334, 0.93333334, 1)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -67.0
+offset_right = 189.0
+grow_vertical = 0
+texture = ExtResource("5_ytpwg")
 
 [node name="TitleContainer" parent="MenuContainer/TitleMargin" index="0"]
 modulate = Color(1, 1, 1, 0)
@@ -347,7 +375,7 @@ modulate = Color(1, 1, 1, 0)
 [node name="MenuButtonsBoxContainer" parent="MenuContainer/MenuButtonsMargin/MenuButtonsContainer" index="0"]
 lock = true
 
-[node name="MouseFilter" type="Control" parent="." index="7"]
+[node name="MouseFilter" type="Control" parent="." index="8"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

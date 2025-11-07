@@ -1,7 +1,16 @@
 [gd_scene load_steps=3 format=3 uid="uid://d3wwh6rrsyp5u"]
 
-[ext_resource type="PackedScene" path="res://addons/maaacks_menus_template/base/nodes/loading_screen/loading_screen.tscn" id="1_p7v4l"]
-[ext_resource type="Script" path="res://menus/scenes/loading_screen/loading_screen.gd" id="2_lw1qu"]
+[ext_resource type="PackedScene" uid="uid://cd0jbh4metflb" path="res://addons/maaacks_menus_template/base/nodes/loading_screen/loading_screen.tscn" id="1_p7v4l"]
+[ext_resource type="Script" uid="uid://3bsibvtrvkwm" path="res://menus/scenes/loading_screen/loading_screen.gd" id="2_lw1qu"]
 
 [node name="LoadingScreen" instance=ExtResource("1_p7v4l")]
 script = ExtResource("2_lw1qu")
+
+[node name="BackgroundColor" parent="Control" index="1"]
+color = Color(0.043039158, 0.04303915, 0.04303915, 1)
+
+[node name="ErrorMessage" parent="Control" index="4"]
+size = Vector2i(360, 190)
+
+[node name="StalledMessage" parent="Control" index="5"]
+size = Vector2i(360, 190)

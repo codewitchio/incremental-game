@@ -2,21 +2,21 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bjd33id0fvhuh"
-path="res://.godot/imported/circle.svg-3f820c143353f7620bdcdc1e08e03e9a.ctex"
+uid="uid://1d2ow3c6dx5f"
+path="res://.godot/imported/logo_small_monochrome_dark.svg-24f7d19a707da8d97ec07a5cdda3bc95.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/player/circle.svg"
-dest_files=["res://.godot/imported/circle.svg-3f820c143353f7620bdcdc1e08e03e9a.ctex"]
+source_file="res://menus/assets/godot_engine_logo/logo_small_monochrome_dark.svg"
+dest_files=["res://.godot/imported/logo_small_monochrome_dark.svg-24f7d19a707da8d97ec07a5cdda3bc95.ctex"]
 
 [params]
 
 compress/mode=0
-compress/high_quality=true
+compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0
@@ -38,6 +38,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=0.1
+svg/scale=0.2
 editor/scale_with_editor_scale=false
 editor/convert_colors_with_editor_theme=false
