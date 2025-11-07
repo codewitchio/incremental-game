@@ -41,7 +41,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/loggie/plugin.cfg", "res://addons/maaacks_menus_template/plugin.cfg")
+enabled=PackedStringArray("res://addons/loggie/plugin.cfg", "res://addons/maaacks_menus_template/plugin.cfg", "res://addons/xsm/plugin.cfg")
 
 [gui]
 

@@ -1,7 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://05bxyv1k8afd"]
+[gd_scene load_steps=20 format=3 uid="uid://05bxyv1k8afd"]
 
 [ext_resource type="Theme" uid="uid://df64srr2x8vbc" path="res://systems/ui/theme/theme.tres" id="1_dft0o"]
 [ext_resource type="Script" uid="uid://bncmmwhmf2lwo" path="res://systems/game/game.gd" id="1_o883i"]
+[ext_resource type="Script" uid="uid://r7wj8xf4sp1a" path="res://addons/xsm/state.gd" id="2_jqpt0"]
 [ext_resource type="Script" uid="uid://b2cy5jwid4j45" path="res://systems/ui/number.gd" id="3_eo8vb"]
 [ext_resource type="Texture2D" uid="uid://bjd33id0fvhuh" path="res://entities/player/circle.svg" id="4_8ybjc"]
 [ext_resource type="PackedScene" uid="uid://cjrfiynts2bd1" path="res://systems/ui/shop.tscn" id="4_jqpt0"]
@@ -109,6 +110,28 @@ _data = {
 [node name="Game" type="Node2D" node_paths=PackedStringArray("_round_ending_timer")]
 script = ExtResource("1_o883i")
 _round_ending_timer = NodePath("RoundEndingTimer")
+
+[node name="GameState" type="Node" parent="."]
+script = ExtResource("2_jqpt0")
+history_size = 0
+history_mode = 1
+disabled = false
+debug_mode = false
+target_path = NodePath("..")
+timed = false
+remember_active_substate = false
+next_state = NodePath("")
+metadata/_custom_type_script = "uid://r7wj8xf4sp1a"
+
+[node name="State" type="Node" parent="GameState"]
+script = ExtResource("2_jqpt0")
+disabled = false
+debug_mode = false
+target_path = NodePath("")
+timed = false
+remember_active_substate = false
+next_state = NodePath("")
+metadata/_custom_type_script = "uid://r7wj8xf4sp1a"
 
 [node name="RoundEndingTimer" type="Timer" parent="."]
 wait_time = 1.5
