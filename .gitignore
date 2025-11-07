@@ -8,3 +8,6 @@
 
 # Godot exports
 exports/
+
+# PostHog config
+posthog.json

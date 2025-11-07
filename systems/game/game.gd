@@ -26,6 +26,8 @@ func _ready() -> void:
     Signals.player_died.connect(_on_player_died)
     _round_ending_timer.timeout.connect(_on_round_ending_timeout)
 
+    PostHog.capture("game_started")
+
 func _on_player_died() -> void:
     _end_round()
 
