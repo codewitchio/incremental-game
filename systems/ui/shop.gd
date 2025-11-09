@@ -8,8 +8,8 @@ func _ready() -> void:
 
 	Signals.game_state_changed.connect(_on_game_state_changed)
 
-func _on_game_state_changed(state: Game.GameState) -> void:
-	if state == Game.GameState.BETWEEN_ROUNDS:
+func _on_game_state_changed(state: StringName) -> void:
+	if state == GameState.BetweenRounds:
 		animation_player.play("enter")
 	# TODO: Play exit animation but only on leaving the BETWEEN_ROUNDS state. XSM would make this easier.
 	# else:

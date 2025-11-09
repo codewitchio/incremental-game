@@ -51,10 +51,10 @@ func _ready() -> void:
 	Signals.attack_colission_with_enemy.connect(_handle_attack_colission_with_enemy)
 	Signals.game_state_changed.connect(_on_game_state_changed)
 
-func _on_game_state_changed(state: Game.GameState) -> void:
-	if state == Game.GameState.ROUND_ENDING:
+func _on_game_state_changed(state: StringName) -> void:
+	if state == GameState.RoundEnding:
 		disable()
-	elif state == Game.GameState.PLAYING_ROUND:
+	elif state == GameState.PlayingRound:
 		enable()
 
 func _process(delta: float) -> void:

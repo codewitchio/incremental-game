@@ -36,10 +36,10 @@ func _ready() -> void:
 
 	Signals.game_state_changed.connect(_on_game_state_changed)
 
-func _on_game_state_changed(state: Game.GameState) -> void:
-	if state == Game.GameState.ROUND_ENDING:
+func _on_game_state_changed(state: StringName) -> void:
+	if state == GameState.RoundEnding:
 		disable()
-	elif state == Game.GameState.PLAYING_ROUND:
+	elif state == GameState.PlayingRound:
 		enable()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -50,8 +50,8 @@ func _on_area_shape_entered(area_id: RID, _area: Area2D, _area_shape_index: int,
 		# Loggie.debug("Area shape entered:",area_id, area, area_shape_index, body_shape_index)
 
 
-func _on_game_state_changed(state: Game.GameState) -> void:
-	if state == Game.GameState.ROUND_ENDING:
+func _on_game_state_changed(state: StringName) -> void:
+	if state == GameState.RoundEnding:
 		remove_gracefully()
 
 func remove_gracefully() -> void:

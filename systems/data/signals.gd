@@ -8,4 +8,4 @@ signal enemy_died(enemy_instance: EnemyInstance)
 
 signal player_died()
 
-signal game_state_changed(state: Game.GameState)
+signal game_state_changed(state: StringName)
