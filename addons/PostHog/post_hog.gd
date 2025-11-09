@@ -57,8 +57,7 @@ func _http_request_completed(_result, _response_code, _headers, body):
 
 func _load_post_hog_json():
 	if not FileAccess.file_exists(APP_FILE_PATH):
-		Loggie.msg(APP_FILE_PATH, ' not found').preset("Analytics").info()
-		Loggie.msg('Analytics disabled').preset("Analytics").info()
+		Loggie.msg(APP_FILE_PATH, ' not found, analytics cannot be enabled').preset("Analytics").error()
 		enabled = false
 		return
 	var app_post_hog_file = FileAccess.open(APP_FILE_PATH, FileAccess.READ)
