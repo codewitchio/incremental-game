@@ -130,7 +130,7 @@ debug_mode = false
 target_path = NodePath("../..")
 timed = false
 remember_active_substate = false
-next_state = NodePath("")
+next_state = NodePath("../PauseMenu")
 metadata/_custom_type_script = "uid://r7wj8xf4sp1a"
 
 [node name="PauseMenu" type="Node" parent="GameState"]
@@ -140,7 +140,7 @@ debug_mode = false
 target_path = NodePath("../..")
 timed = false
 remember_active_substate = false
-next_state = NodePath("")
+next_state = NodePath("../PlayingRoung")
 metadata/_custom_type_script = "uid://r7wj8xf4sp1a"
 
 [node name="PlayingRoung" type="Node" parent="GameState"]
@@ -150,7 +150,7 @@ debug_mode = false
 target_path = NodePath("../..")
 timed = false
 remember_active_substate = false
-next_state = NodePath("")
+next_state = NodePath("../RoundEnding")
 metadata/_custom_type_script = "uid://r7wj8xf4sp1a"
 
 [node name="RoundEnding" type="Node" parent="GameState"]
@@ -174,11 +174,6 @@ timed = false
 remember_active_substate = false
 next_state = NodePath("")
 metadata/_custom_type_script = "uid://r7wj8xf4sp1a"
-
-[node name="RoundEndingTimer" type="Timer" parent="."]
-wait_time = 1.5
-one_shot = true
-ignore_time_scale = true
 
 [node name="StatisticsTracker" type="Node" parent="."]
 script = ExtResource("11_hqdei")
