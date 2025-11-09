@@ -18,6 +18,8 @@ func _ready() -> void:
 	Signals.game_state_changed.connect(_on_game_state_changed)
 
 	current_health = Save.player_stats.Get(Strings.PlayerStat_MaxHealth)
+	
+	visible = false
 
 	if animation_player == null:
 		Loggie.error("Animation player is not set")
@@ -48,5 +50,6 @@ func _handle_death() -> void:
 # Could this be solved with the StateEnabler? I guess. But it breaks semantics.
 func reset() -> void:
 	_is_alive = true
+	visible = true
 	current_health = Save.player_stats.Get(Strings.PlayerStat_MaxHealth)
 	animation_player.play("respawn")

@@ -21,8 +21,9 @@ func _ready() -> void:
 
         Signals.player_died.connect(_on_player_died)
         Signals.done_shopping.connect(_on_done_shopping)
+        Signals.dismiss_tutorial.connect(_on_dismiss_tutorial)
 
-        change_state(StartingNewRound)
+        change_state(FirstStart)
 
 func _on_state_changed(_sender: State, new_state: State) -> void:
     Loggie.msg("Changed to: %s" % new_state.name).preset("State").info()
@@ -30,6 +31,9 @@ func _on_state_changed(_sender: State, new_state: State) -> void:
 
 # Not sure I love listing these here, but idk where else it makes sense.
 # Alternative is to call a set_state (or as a request_state_change signal) from the relevant nodes.
+
+func _on_dismiss_tutorial() -> void:
+    change_state(StartingNewRound)
 
 func _on_player_died() -> void:
     change_state(RoundEnding)
