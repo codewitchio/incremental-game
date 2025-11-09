@@ -14,21 +14,25 @@ var target_position: Vector2 = Constants.PlayerPosition
 @export var player_collision_shape: CollisionShape2D
 
 ## VFX scene to use on enemy death. Must be GPUParticles2D.
-const ENEMY_DEATH_VFX_SCENE: PackedScene = preload("res://entities/vfx/enemy_death_vfx.tscn")
+const ENEMY_DEATH_VFX_SCENE: PackedScene = preload("res://entities/vfx/enemy_death_vfx.tscn") # This could be defined in the EnemyData
 
 ## PhysicsServer2D space state for collision queries (uses world's default space).
 var space_state: PhysicsDirectSpaceState2D = null
 
 var _is_enabled: bool = true
 
+var state_enabler: StateEnabler = StateEnabler.new(self, [GameState.PlayingRound])
+
 func enable() -> void:
 	_is_enabled = true
 	Loggie.info("Enabled")
+	spawner.enable()
 
 func disable() -> void:
 	_erase_all_enemies()
 	_is_enabled = false
 	Loggie.info("Disabled")
+	spawner.disable()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -49,13 +53,6 @@ func _ready() -> void:
 	space_state = PhysicsServer2D.space_get_direct_state(world_space)
 
 	Signals.attack_colission_with_enemy.connect(_handle_attack_colission_with_enemy)
-	Signals.game_state_changed.connect(_on_game_state_changed)
-
-func _on_game_state_changed(state: StringName) -> void:
-	if state == GameState.RoundEnding:
-		disable()
-	elif state == GameState.PlayingRound:
-		enable()
 
 func _process(delta: float) -> void:
 	if not _is_enabled:
@@ -171,7 +168,6 @@ func _handle_enemy_collision_with_player(_enemy_instance: EnemyInstance) -> void
 	Signals.enemy_collision_with_player.emit(_enemy_instance)
 
 func _handle_attack_colission_with_enemy(enemy_rid: RID, damage: float) -> void:
-	# TODO: VFX, etc.
 	if enemy_rid.is_valid() and enemy_instances.has(enemy_rid):
 		var enemy: EnemyInstance = enemy_instances[enemy_rid]
 		enemy.take_damage(damage)

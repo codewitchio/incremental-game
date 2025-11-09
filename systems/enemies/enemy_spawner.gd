@@ -25,6 +25,7 @@ func enable() -> void:
 	Loggie.info("Enabled")
 
 func disable() -> void:
+	_spawn_timer = 0.0
 	_is_enabled = false
 	Loggie.info("Disabled")
 
@@ -33,14 +34,6 @@ func _ready() -> void:
 	await owner.ready
 	base_viewport_size = get_tree().root.content_scale_size
 	world_space = get_world_2d().get_space()
-
-	Signals.game_state_changed.connect(_on_game_state_changed)
-
-func _on_game_state_changed(state: StringName) -> void:
-	if state == GameState.RoundEnding:
-		disable()
-	elif state == GameState.PlayingRound:
-		enable()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

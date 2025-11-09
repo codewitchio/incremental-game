@@ -9,6 +9,8 @@ extends Node2D
 
 var _is_enabled: bool = true
 
+var state_enabler: StateEnabler = StateEnabler.new(self, [GameState.PlayingRound])
+
 func enable() -> void:
 	_is_enabled = true
 	Loggie.info("Enabled")
@@ -27,15 +29,6 @@ func _attack_is_ready() -> bool:
 func _start_attack_timer() -> void:
 	_attack_timer = 1.0 / attack_speed
 
-func _ready() -> void:
-	Signals.game_state_changed.connect(_on_game_state_changed)
-
-func _on_game_state_changed(state: StringName) -> void:
-	if state == GameState.RoundEnding:
-		disable()
-	elif state == GameState.PlayingRound:
-		enable()
-		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if _attack_timer > 0.0:

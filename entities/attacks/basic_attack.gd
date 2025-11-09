@@ -26,7 +26,6 @@ func _ready() -> void:
 	add_child(lifetime_timer)
 	lifetime_timer.start()
 
-	Signals.game_state_changed.connect(_on_game_state_changed)
 	area_shape_entered.connect(_on_area_shape_entered)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -48,11 +47,6 @@ func _on_area_shape_entered(area_id: RID, _area: Area2D, _area_shape_index: int,
 	if area_id.is_valid():
 		Signals.attack_colission_with_enemy.emit(area_id, damage)
 		# Loggie.debug("Area shape entered:",area_id, area, area_shape_index, body_shape_index)
-
-
-func _on_game_state_changed(state: StringName) -> void:
-	if state == GameState.RoundEnding:
-		remove_gracefully()
 
 func remove_gracefully() -> void:
 	# TODO: Fade out with an animation or similar.

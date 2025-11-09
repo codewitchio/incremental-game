@@ -108,9 +108,8 @@ _data = {
 &"round_ending": SubResource("Animation_o883i")
 }
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("_round_ending_timer")]
+[node name="Game" type="Node2D"]
 script = ExtResource("1_o883i")
-_round_ending_timer = NodePath("RoundEndingTimer")
 
 [node name="GameState" type="Node" parent="."]
 script = ExtResource("2_8ylyn")
