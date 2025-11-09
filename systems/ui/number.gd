@@ -14,5 +14,4 @@ func _update_text(value: Variant) -> void:
 
 
 func format_score(score: float) -> String:
-	# TODO: Remove .0 decimal places if they are 0
 	return "$%s" % snapped(score, 0)

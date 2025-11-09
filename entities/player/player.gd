@@ -20,7 +20,6 @@ func _ready() -> void:
 		Loggie.error("Animation player is not set")
 
 func _on_enemy_collision_with_player(_enemy_instance: EnemyInstance) -> void:
-	# TODO: VFX, etc.
 	if _is_alive:
 		_handle_death()
 
@@ -28,4 +27,3 @@ func _handle_death() -> void:
 	_is_alive = false
 	Signals.player_died.emit()
 	animation_player.play("death")
-	# TODO: VFX, etc.

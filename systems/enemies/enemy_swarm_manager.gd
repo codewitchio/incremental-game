@@ -206,8 +206,9 @@ func _cleanup_physics_collision() -> void:
 
 # Simply deletes all enemies.
 func _erase_all_enemies() -> void:
-	# TODO: Death vfx or something.
+	# TODO: Stagger death vfx? Based on proximity to player. Not sure if that's difficult to do. 
 	for enemy in enemy_instances.values():
+		_spawn_enemy_death_vfx(enemy)
 		_erase_enemy(enemy)
 	
 	multimesh.instance_count = 0
