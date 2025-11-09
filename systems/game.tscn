@@ -1,9 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://05bxyv1k8afd"]
+[gd_scene load_steps=20 format=3 uid="uid://05bxyv1k8afd"]
 
 [ext_resource type="Theme" uid="uid://df64srr2x8vbc" path="res://systems/ui/theme/theme.tres" id="1_dft0o"]
 [ext_resource type="Script" uid="uid://bncmmwhmf2lwo" path="res://systems/game/game.gd" id="1_o883i"]
-[ext_resource type="Script" uid="uid://d1nf5vrsu0so3" path="res://systems/state/game_state.gd" id="2_8ylyn"]
-[ext_resource type="Script" uid="uid://r7wj8xf4sp1a" path="res://addons/xsm/state.gd" id="2_jqpt0"]
+[ext_resource type="PackedScene" uid="uid://dv4oiml6lee2m" path="res://systems/state/game_state.tscn" id="2_jqpt0"]
 [ext_resource type="Script" uid="uid://b2cy5jwid4j45" path="res://systems/ui/number.gd" id="3_eo8vb"]
 [ext_resource type="Texture2D" uid="uid://bjd33id0fvhuh" path="res://entities/player/circle.svg" id="4_8ybjc"]
 [ext_resource type="PackedScene" uid="uid://cjrfiynts2bd1" path="res://systems/ui/shop/shop.tscn" id="4_jqpt0"]
@@ -148,81 +147,7 @@ _data = {
 [node name="Game" type="Node2D"]
 script = ExtResource("1_o883i")
 
-[node name="GameState" type="Node" parent="."]
-script = ExtResource("2_8ylyn")
-history_size = 0
-history_mode = 1
-disabled = false
-debug_mode = false
-target_path = NodePath("..")
-timed = false
-remember_active_substate = false
-next_state = NodePath("")
-metadata/_custom_type_script = "uid://d1nf5vrsu0so3"
-
-[node name="FirstStart" type="Node" parent="GameState"]
-script = ExtResource("2_jqpt0")
-disabled = false
-debug_mode = false
-target_path = NodePath("../..")
-timed = false
-remember_active_substate = false
-next_state = NodePath("../PauseMenu")
-metadata/_custom_type_script = "uid://r7wj8xf4sp1a"
-
-[node name="PauseMenu" type="Node" parent="GameState"]
-script = ExtResource("2_jqpt0")
-disabled = false
-debug_mode = false
-target_path = NodePath("../..")
-timed = false
-remember_active_substate = false
-next_state = NodePath("../PlayingRound")
-metadata/_custom_type_script = "uid://r7wj8xf4sp1a"
-
-[node name="StartingNewRound" type="Node" parent="GameState"]
-script = ExtResource("2_jqpt0")
-disabled = false
-debug_mode = false
-target_path = NodePath("")
-timed = true
-waiting_time = 1.5
-on_timer_finished = 3
-remember_active_substate = false
-next_state = NodePath("../PlayingRound")
-metadata/_custom_type_script = "uid://r7wj8xf4sp1a"
-
-[node name="PlayingRound" type="Node" parent="GameState"]
-script = ExtResource("2_jqpt0")
-disabled = false
-debug_mode = false
-target_path = NodePath("../..")
-timed = false
-remember_active_substate = false
-next_state = NodePath("../RoundEnding")
-metadata/_custom_type_script = "uid://r7wj8xf4sp1a"
-
-[node name="RoundEnding" type="Node" parent="GameState"]
-script = ExtResource("2_jqpt0")
-disabled = false
-debug_mode = false
-target_path = NodePath("../..")
-timed = true
-waiting_time = 1.5
-on_timer_finished = 3
-remember_active_substate = false
-next_state = NodePath("../BetweenRounds")
-metadata/_custom_type_script = "uid://r7wj8xf4sp1a"
-
-[node name="BetweenRounds" type="Node" parent="GameState"]
-script = ExtResource("2_jqpt0")
-disabled = false
-debug_mode = false
-target_path = NodePath("../..")
-timed = false
-remember_active_substate = false
-next_state = NodePath("../StartingNewRound")
-metadata/_custom_type_script = "uid://r7wj8xf4sp1a"
+[node name="GameState" parent="." instance=ExtResource("2_jqpt0")]
 
 [node name="StatisticsTracker" type="Node" parent="."]
 script = ExtResource("11_hqdei")

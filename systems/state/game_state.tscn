@@ -1,0 +1,80 @@
+[gd_scene load_steps=3 format=3 uid="uid://dv4oiml6lee2m"]
+
+[ext_resource type="Script" uid="uid://d1nf5vrsu0so3" path="res://systems/state/game_state.gd" id="1_brih6"]
+[ext_resource type="Script" uid="uid://r7wj8xf4sp1a" path="res://addons/xsm/state.gd" id="2_xod0r"]
+
+[node name="GameState" type="Node"]
+script = ExtResource("1_brih6")
+history_size = 0
+history_mode = 1
+disabled = false
+debug_mode = false
+target_path = NodePath("..")
+timed = false
+remember_active_substate = false
+next_state = NodePath("")
+metadata/_custom_type_script = "uid://d1nf5vrsu0so3"
+
+[node name="FirstStart" type="Node" parent="."]
+script = ExtResource("2_xod0r")
+disabled = false
+debug_mode = false
+target_path = NodePath("../..")
+timed = false
+remember_active_substate = false
+next_state = NodePath("../PauseMenu")
+metadata/_custom_type_script = "uid://r7wj8xf4sp1a"
+
+[node name="PauseMenu" type="Node" parent="."]
+script = ExtResource("2_xod0r")
+disabled = false
+debug_mode = false
+target_path = NodePath("../..")
+timed = false
+remember_active_substate = false
+next_state = NodePath("../StartingNewRound")
+metadata/_custom_type_script = "uid://r7wj8xf4sp1a"
+
+[node name="StartingNewRound" type="Node" parent="."]
+script = ExtResource("2_xod0r")
+disabled = false
+debug_mode = false
+target_path = NodePath("../..")
+timed = true
+waiting_time = 1.5
+on_timer_finished = 3
+remember_active_substate = false
+next_state = NodePath("../PlayingRound")
+metadata/_custom_type_script = "uid://r7wj8xf4sp1a"
+
+[node name="PlayingRound" type="Node" parent="."]
+script = ExtResource("2_xod0r")
+disabled = false
+debug_mode = false
+target_path = NodePath("../..")
+timed = false
+remember_active_substate = false
+next_state = NodePath("../RoundEnding")
+metadata/_custom_type_script = "uid://r7wj8xf4sp1a"
+
+[node name="RoundEnding" type="Node" parent="."]
+script = ExtResource("2_xod0r")
+disabled = false
+debug_mode = false
+target_path = NodePath("../..")
+timed = true
+waiting_time = 1.5
+on_timer_finished = 3
+remember_active_substate = false
+next_state = NodePath("../BetweenRounds")
+metadata/_custom_type_script = "uid://r7wj8xf4sp1a"
+
+[node name="BetweenRounds" type="Node" parent="."]
+script = ExtResource("2_xod0r")
+disabled = false
+debug_mode = false
+target_path = NodePath("../..")
+timed = false
+remember_active_substate = false
+next_state = NodePath("../StartingNewRound")
+metadata/_custom_type_script = "uid://r7wj8xf4sp1a"
