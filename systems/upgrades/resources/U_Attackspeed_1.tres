@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Upgrade" load_steps=2 format=3 uid="uid://bm4d68ggot3gw"]
+
+[ext_resource type="Script" uid="uid://cids7myx8kc6f" path="res://systems/upgrades/upgrade.gd" id="1_d1vl7"]
+
+[resource]
+script = ExtResource("1_d1vl7")
+name = "Attack Speed"
+description = "Increases your attack speed by x%"
+cost = 50
+stat = &"attack_speed"
+change = 0.5
+metadata/_custom_type_script = "uid://cids7myx8kc6f"

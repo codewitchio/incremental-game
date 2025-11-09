@@ -4,9 +4,6 @@ extends Node2D
 
 @export var attack_scene: PackedScene = preload("res://entities/attacks/basic_attack.tscn") as PackedScene
 
-## Speed of the attack in attacks per second.
-@export var attack_speed: float = 1.0 # TODO: this is a player stat that should be in the store
-
 var _is_enabled: bool = true
 
 var state_enabler: StateEnabler = StateEnabler.new(self, [GameState.PlayingRound])
@@ -31,7 +28,7 @@ func _attack_is_ready() -> bool:
 	return _attack_timer == 0.0
 
 func _start_attack_timer() -> void:
-	_attack_timer = 1.0 / attack_speed
+	_attack_timer = Save.calculate_attack_timer()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
