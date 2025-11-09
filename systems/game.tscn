@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://05bxyv1k8afd"]
+[gd_scene load_steps=23 format=3 uid="uid://05bxyv1k8afd"]
 
 [ext_resource type="Theme" uid="uid://df64srr2x8vbc" path="res://systems/ui/theme/theme.tres" id="1_dft0o"]
 [ext_resource type="Script" uid="uid://bncmmwhmf2lwo" path="res://systems/game/game.gd" id="1_o883i"]
@@ -14,6 +14,8 @@
 [ext_resource type="Script" uid="uid://bmh816uhtwq3t" path="res://systems/enemies/enemy_swarm_manager.gd" id="6_o883i"]
 [ext_resource type="PackedScene" uid="uid://y6ewubulhdlu" path="res://systems/ui/tutorial.tscn" id="7_8ylyn"]
 [ext_resource type="Script" uid="uid://c63iwymrphneu" path="res://systems/enemies/enemy_spawner.gd" id="7_p01kn"]
+[ext_resource type="AnimationLibrary" uid="uid://u22i45ku2wmh" path="res://systems/ui/ui_animations.res" id="7_v4yoj"]
+[ext_resource type="Script" uid="uid://d0d5f76ket3c2" path="res://systems/ui/state_enter_exit.gd" id="8_7nem5"]
 [ext_resource type="Script" uid="uid://bce7abeceey6r" path="res://systems/data/statistics_tracker.gd" id="11_hqdei"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6o2s0"]
@@ -174,26 +176,32 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_dft0o")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/UI"]
+[node name="HUD" type="MarginContainer" parent="CanvasLayer/UI"]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -20.0
-offset_right = 20.0
-offset_bottom = 45.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/margin_top = 32
 
-[node name="money" type="Label" parent="CanvasLayer/UI/MarginContainer"]
+[node name="money" type="Label" parent="CanvasLayer/UI/HUD"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 4
 size_flags_vertical = 0
 text = "0"
 horizontal_alignment = 1
 script = ExtResource("3_eo8vb")
 store_key = "money"
+
+[node name="StateEnterExit" type="AnimationPlayer" parent="CanvasLayer/UI/HUD"]
+libraries = {
+&"ui_animations": ExtResource("7_v4yoj")
+}
+script = ExtResource("8_7nem5")
+enter_states = Array[StringName]([&"PlayingRound", &"BetweenRounds", &"RoundEnding", &"StartingNewRound"])
+metadata/_custom_type_script = "uid://d0d5f76ket3c2"
 
 [node name="Shop" parent="CanvasLayer/UI" instance=ExtResource("4_jqpt0")]
 layout_mode = 1
