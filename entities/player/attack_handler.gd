@@ -12,13 +12,17 @@ var _is_enabled: bool = true
 var state_enabler: StateEnabler = StateEnabler.new(self, [GameState.PlayingRound])
 
 func enable() -> void:
+	if _is_enabled:
+		return
 	_is_enabled = true
-	Loggie.info("Enabled")
+	Loggie.msg("Enabled").preset("Enabled").info()
 
 func disable() -> void:
+	if not _is_enabled:
+		return
 	remove_all_attacks()
 	_is_enabled = false
-	Loggie.info("Disabled")
+	Loggie.msg("Disabled").preset("Disabled").info()
 
 var _attack_timer: float = 0.0
 

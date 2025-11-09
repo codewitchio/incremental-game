@@ -9,22 +9,18 @@ var distinct_id = ""
 ## https://posthog.com/docs/data/anonymous-vs-identified-events
 var anonymous_events = true:
 	set = _update_anonymous_events
-var enabled = OS.has_feature("analytics")
+var enabled = true
 
 signal error_occurred(e: Error)
 signal api_response(response: Variant)
 
 ## Properties included in every event.
-var auto_include_properties = {
-	"game_name": "incremental-game",
-	"game_version": ProjectSettings.get_setting("application/config/version", "0.0.0"),
-}
+var auto_include_properties = { }
 
 ## Whether the platform should be included in every event.
 @export var include_platform = true
 
 func _ready() -> void:
-	Loggie.info("PostHog enabled:", enabled)
 	_update_anonymous_events(anonymous_events)
 	_load_post_hog_json()
 	_load_post_hog_user_json()

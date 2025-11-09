@@ -24,14 +24,18 @@ var _is_enabled: bool = true
 var state_enabler: StateEnabler = StateEnabler.new(self, [GameState.PlayingRound])
 
 func enable() -> void:
+	if _is_enabled:
+		return
 	_is_enabled = true
-	Loggie.info("Enabled")
+	Loggie.msg("Enabled").preset("Enabled").info()
 	spawner.enable()
 
 func disable() -> void:
+	if not _is_enabled:
+		return
 	_erase_all_enemies()
 	_is_enabled = false
-	Loggie.info("Disabled")
+	Loggie.msg("Disabled").preset("Disabled").info()
 	spawner.disable()
 
 # Called when the node enters the scene tree for the first time.

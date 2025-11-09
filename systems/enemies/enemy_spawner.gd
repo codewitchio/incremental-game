@@ -21,13 +21,17 @@ var world_space: RID
 var _is_enabled: bool = true
 
 func enable() -> void:
+	if _is_enabled:
+		return
 	_is_enabled = true
-	Loggie.info("Enabled")
+	Loggie.msg("Enabled").preset("Enabled").info()
 
 func disable() -> void:
+	if not _is_enabled:
+		return
 	_spawn_timer = 0.0
 	_is_enabled = false
-	Loggie.info("Disabled")
+	Loggie.msg("Disabled").preset("Disabled").info()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
