@@ -11,7 +11,7 @@ func _ready() -> void:
 
 
 func _setup_post_hog() -> void:
-    PostHog.auto_include_properties["gamme_name"] = "incremental-game"
+    PostHog.auto_include_properties["game_name"] = "incremental-game"
     PostHog.auto_include_properties["game_version"] = ProjectSettings.get_setting("application/config/version", "0.0.0")
 
     PostHog.enabled = OS.has_feature("analytics")
