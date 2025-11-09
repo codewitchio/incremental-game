@@ -6,13 +6,22 @@ var enabled_preset: LoggiePreset = Loggie.preset("Enabled").color(Constants.Colo
 var disabled_preset: LoggiePreset = Loggie.preset("Disabled").color(Constants.Color_Red)
 var state_preset: LoggiePreset = Loggie.preset("State").color(Constants.Color_Sky)
 
+var analytics_preset: LoggiePreset = Loggie.preset("Analytics").domain("Analytics")
+
+const GAME_NAME = "incremental-game"
+
+class AnalyticsProperties: 
+	const GameName = "game_name"
+	const GameVersion = "game_version"
+
 func _ready() -> void:
 	_setup_post_hog()
 
-
 func _setup_post_hog() -> void:
-	PostHog.auto_include_properties["game_name"] = "incremental-game"
-	PostHog.auto_include_properties["game_version"] = ProjectSettings.get_setting("application/config/version", "0.0.0")
+	Loggie.set_domain_enabled("Analytics", OS.has_feature("analytics"))
+
+	PostHog.auto_include_properties[AnalyticsProperties.GameName] = GAME_NAME
+	PostHog.auto_include_properties[AnalyticsProperties.GameVersion] = ProjectSettings.get_setting("application/config/version", "0.0.0")
 
 	PostHog.enabled = OS.has_feature("analytics")
 	if PostHog.enabled:

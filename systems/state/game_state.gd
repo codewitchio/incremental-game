@@ -13,10 +13,11 @@ const Ended = &"Ended"
 
 func _ready() -> void:
     super._ready()
-    PostHog.capture("game_started")
-
-    self.state_changed.connect(_on_state_changed)
-    Signals.player_died.connect(_on_player_died)
+    
+    if not Engine.is_editor_hint():
+        PostHog.capture("game_started")
+        self.state_changed.connect(_on_state_changed)
+        Signals.player_died.connect(_on_player_died)
 
 func _on_player_died() -> void:
     change_state("RoundEnding")

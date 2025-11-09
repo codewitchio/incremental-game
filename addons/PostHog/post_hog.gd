@@ -31,6 +31,7 @@ func capture(event_name: String, properties: Dictionary = {}) -> void:
 	if not enabled:
 		return
 	properties.merge(auto_include_properties)
+	Loggie.msg("Sending event: %s with properties: %s" % [event_name, properties]).preset("Analytics").info()
 	_send(event_name, properties)
 
 func _send(event_name: String, properties: Dictionary = {}) -> void:
@@ -56,8 +57,8 @@ func _http_request_completed(_result, _response_code, _headers, body):
 
 func _load_post_hog_json():
 	if not FileAccess.file_exists(APP_FILE_PATH):
-		print(APP_FILE_PATH, ' not found')
-		print('Analytics disabled')
+		Loggie.msg(APP_FILE_PATH, ' not found').preset("Analytics").info()
+		Loggie.msg('Analytics disabled').preset("Analytics").info()
 		enabled = false
 		return
 	var app_post_hog_file = FileAccess.open(APP_FILE_PATH, FileAccess.READ)
