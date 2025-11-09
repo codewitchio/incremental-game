@@ -22,6 +22,6 @@ func _on_player_died() -> void:
     change_state("RoundEnding")
 
 func _on_state_changed(_sender: State, new_state: State) -> void:
-    Loggie.info("Game state: %s" % new_state.name)
+    Loggie.info("Changed to: %s" % new_state.name)
     Signals.game_state_changed.emit(new_state.name)
 
