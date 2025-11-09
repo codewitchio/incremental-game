@@ -16,6 +16,7 @@ class AnalyticsProperties:
 
 func _ready() -> void:
 	_setup_post_hog()
+	call_deferred("_setup_console")
 
 func _setup_post_hog() -> void:
 	Loggie.set_domain_enabled("Analytics", OS.has_feature("analytics"))
@@ -28,3 +29,13 @@ func _setup_post_hog() -> void:
 		Loggie.msg("PostHog enabled").preset("Enabled").info()
 	else:
 		Loggie.msg("PostHog disabled").preset("Disabled").info()
+
+
+func _setup_console() -> void:
+	LimboConsole.enabled = OS.is_debug_build()
+
+	LimboConsole.register_command(_get_player_stat, "player_stat", "Get a player stat")
+	LimboConsole.add_argument_autocomplete_source("player_stat", 1, func(): return Save.player_stats.Keys()) # This doesn't seem to work?
+
+func _get_player_stat(stat_name: String) -> void:
+	LimboConsole.info(str(Save.player_stats.Get(stat_name)))

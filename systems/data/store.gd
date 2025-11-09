@@ -61,3 +61,6 @@ func Subscribe(key: String, callback: Callable) -> void:
 		return
 
 	_data[key].value_changed.connect(callback)
+
+func Keys() -> PackedStringArray:
+	return PackedStringArray(_data.keys())
