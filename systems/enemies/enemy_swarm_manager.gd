@@ -13,6 +13,9 @@ var target_position: Vector2 = Constants.PlayerPosition
 ## Reference to player's collision shape node.
 @export var player_collision_shape: CollisionShape2D
 
+## VFX scene to use on enemy death. Must be GPUParticles2D.
+const ENEMY_DEATH_VFX_SCENE: PackedScene = preload("res://entities/vfx/enemy_death_vfx.tscn")
+
 ## PhysicsServer2D space state for collision queries (uses world's default space).
 var space_state: PhysicsDirectSpaceState2D = null
 
@@ -100,7 +103,6 @@ func _update_multimesh() -> void:
 	# Update transform for each enemy instance
 	var i = 0
 	for enemy in enemy_instances.values():
-		
 		# Calculate direction to target and rotation angle
 		var direction = (target_position - enemy.position)
 		var direction_angle = direction.angle() if direction.length() > 0.0 else 0.0
@@ -140,9 +142,9 @@ func _check_collisions() -> void:
 	query.shape = player_collision_shape.shape
 	query.transform = Transform2D.IDENTITY
 	query.transform.origin = player_position
-	query.collision_mask = Constants.CollisionLayer_Enemies 
-	query.collide_with_areas = true  # Query areas instead of bodies
-	query.exclude = []  # Don't exclude - we filter by checking enemy_instances. 
+	query.collision_mask = Constants.CollisionLayer_Enemies
+	query.collide_with_areas = true # Query areas instead of bodies
+	query.exclude = [] # Don't exclude - we filter by checking enemy_instances.
 	
 	# Query for intersecting areas
 	var results = space_state.intersect_shape(query)
@@ -170,14 +172,22 @@ func _handle_enemy_collision_with_player(_enemy_instance: EnemyInstance) -> void
 
 func _handle_attack_colission_with_enemy(enemy_rid: RID, damage: float) -> void:
 	# TODO: VFX, etc.
-
 	if enemy_rid.is_valid() and enemy_instances.has(enemy_rid):
 		var enemy: EnemyInstance = enemy_instances[enemy_rid]
 		enemy.take_damage(damage)
 		if enemy.is_dead():
+			_spawn_enemy_death_vfx(enemy)
 			Signals.enemy_died.emit(enemy)
 			_erase_enemy(enemy)
-	pass
+
+func _spawn_enemy_death_vfx(enemy_instance: EnemyInstance) -> void:
+	if ENEMY_DEATH_VFX_SCENE == null:
+		Loggie.error("Enemy death VFX scene is not set")
+		return
+	var vfx: GPUParticles2D = ENEMY_DEATH_VFX_SCENE.instantiate()
+	vfx.global_position = enemy_instance.position
+	vfx.global_scale = enemy_instance.scale
+	add_child(vfx)
 
 ## Erases an enemy and cleans up its collision area.
 func _erase_enemy(enemy_instance: EnemyInstance) -> void:
@@ -197,7 +207,7 @@ func _cleanup_physics_collision() -> void:
 # Simply deletes all enemies.
 func _erase_all_enemies() -> void:
 	# TODO: Death vfx or something.
-	for enemy in enemy_instances.values():	
+	for enemy in enemy_instances.values():
 		_erase_enemy(enemy)
 	
 	multimesh.instance_count = 0
