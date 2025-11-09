@@ -11,7 +11,8 @@ var upgrades: Upgrades
 # I guess this could be a resource if we changed some things. Easier without StoreValue.
 # Store is already a resource, so it could @export an initial data dictionary.
 var INITIAL_STATISTICS = {
-    Strings.Stat_EnemiesKilled: 0.0 
+    Strings.Stat_EnemiesKilled: 0.0,
+    Strings.Stat_PlayerDeaths: 0.0
 } as Dictionary
 
 var INITIAL_PLAYER_STATS = {

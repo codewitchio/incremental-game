@@ -37,5 +37,11 @@ func _setup_console() -> void:
 	LimboConsole.register_command(_get_player_stat, "player_stat", "Get a player stat")
 	LimboConsole.add_argument_autocomplete_source("player_stat", 1, func(): return Save.player_stats.Keys()) # This doesn't seem to work?
 
+	LimboConsole.register_command(_get_statistic, "statistics", "Get the value of a statistic")
+	LimboConsole.add_argument_autocomplete_source("statistics", 1, func(): return Save.statistics.Keys())
+
 func _get_player_stat(stat_name: String) -> void:
 	LimboConsole.info(str(Save.player_stats.Get(stat_name)))
+
+func _get_statistic(stat_name: String) -> void:
+	LimboConsole.info(str(Save.statistics.Get(stat_name)))

@@ -3,6 +3,7 @@
 extends Node
 
 const Stat_EnemiesKilled = "enemies_killed"
+const Stat_PlayerDeaths = "player_deaths"
 
 const PlayerStat_MaxHealth = "max_health"
 const PlayerStat_CurrentHealth = "current_health"
