@@ -23,3 +23,8 @@ func try_purchase_upgrade(upgrade: Upgrade) -> bool:
 	add_upgrade(upgrade)
 	Save.player_stats.Increment(Strings.PlayerStat_Money, -upgrade.cost)
 	return true
+
+## Checks player balance and upgrade level.
+func can_purchase_upgrade(upgrade: Upgrade) -> bool:
+	var is_under_max_level = !all_upgrades.has(upgrade) or all_upgrades[upgrade] < upgrade.max_level
+	return Save.player_stats.Get(Strings.PlayerStat_Money) >= upgrade.cost and is_under_max_level

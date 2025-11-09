@@ -17,6 +17,9 @@ enum UpgradeFormat {
 @export var stat: StringName = ""
 @export var change: float = 0.0
 
+## How many times the player can purchase this upgrade.
+@export var max_level: int = 999999
+
 func apply() -> void:
 	if not Save.player_stats.Has(stat):
 		Loggie.error("%s is not a valid player stat" % stat)
@@ -27,9 +30,6 @@ func apply() -> void:
 # TODO: Implement nice formatting for the description, that includes the value of the change.
 # Maybe even a tooltip. Wait shit maybe the stats themselves should be resources for that reason
 
-
 # TODO: Implement Upgrade Tree
 # @export var position: Vector2 = Vector2.ZERO
 # @export var requires: Upgrade = null
-# @export var max_level: int = 1
-# func can_buy() -> bool: # check money and level. or let Upgrades do that, depends where we store the count.
