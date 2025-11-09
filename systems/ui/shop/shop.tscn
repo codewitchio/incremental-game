@@ -1,8 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://cjrfiynts2bd1"]
+[gd_scene load_steps=10 format=3 uid="uid://cjrfiynts2bd1"]
 
 [ext_resource type="Script" uid="uid://7s6xh6x3suko" path="res://systems/ui/shop/shop.gd" id="1_c5v55"]
 [ext_resource type="Script" uid="uid://cpf1go040kqi8" path="res://systems/ui/shop/upgrade_button.gd" id="2_sm1js"]
 [ext_resource type="Resource" uid="uid://bm4d68ggot3gw" path="res://systems/upgrades/resources/U_Attackspeed_1.tres" id="3_v7tfa"]
+[ext_resource type="Resource" uid="uid://y6isdxex73an" path="res://systems/upgrades/resources/U_AttackDamage_1.tres" id="4_vp5f6"]
+[ext_resource type="Resource" uid="uid://c0hr1grdopgvq" path="res://systems/upgrades/resources/U_AttackArc_1.tres" id="5_3anwm"]
+[ext_resource type="Resource" uid="uid://dpxrrpyhc3ukn" path="res://systems/upgrades/resources/U_MaxHealth_1.tres" id="6_n4val"]
 
 [sub_resource type="Animation" id="Animation_sm1js"]
 length = 0.001
@@ -93,19 +96,29 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Button" type="Button" parent="VBoxContainer"]
+[node name="Speed" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Attack Speed - $50"
 script = ExtResource("2_sm1js")
 upgrade = ExtResource("3_v7tfa")
 
-[node name="Button2" type="Button" parent="VBoxContainer"]
+[node name="Damage" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-text = "Upgrade 2"
+text = "Attack Damage - $100"
+script = ExtResource("2_sm1js")
+upgrade = ExtResource("4_vp5f6")
 
-[node name="Button3" type="Button" parent="VBoxContainer"]
+[node name="Arc" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-text = "Upgrade 3"
+text = "Attack Arc - $200"
+script = ExtResource("2_sm1js")
+upgrade = ExtResource("5_3anwm")
+
+[node name="Health" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Max Health - $100"
+script = ExtResource("2_sm1js")
+upgrade = ExtResource("6_n4val")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1

@@ -5,6 +5,7 @@ enum UpgradeFormat {
 	PERCENTAGE, # +10% attack speed
 	NUMBER, # +10 attack damage
 	MULTIPLIER, # x2 attack damage
+	ANGLE, # +10 degrees attack arc
 }
 
 @export var name: String = ""
@@ -30,3 +31,5 @@ func apply() -> void:
 # TODO: Implement Upgrade Tree
 # @export var position: Vector2 = Vector2.ZERO
 # @export var requires: Upgrade = null
+# @export var max_level: int = 1
+# func can_buy() -> bool: # check money and level. or let Upgrades do that, depends where we store the count.

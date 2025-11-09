@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Upgrade" load_steps=2 format=3 uid="uid://c0hr1grdopgvq"]
+
+[ext_resource type="Script" uid="uid://cids7myx8kc6f" path="res://systems/upgrades/upgrade.gd" id="1_mc7g1"]
+
+[resource]
+script = ExtResource("1_mc7g1")
+name = "Attack Arc"
+description = "TODO"
+format = 3
+cost = 200
+stat = &"attack_arc"
+change = 10.0
+metadata/_custom_type_script = "uid://cids7myx8kc6f"
