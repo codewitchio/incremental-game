@@ -11,3 +11,6 @@ exports/
 
 # PostHog config
 posthog.json
+
+# MacOS stuff
+.DS_Store
