@@ -27,7 +27,7 @@ func enable() -> void:
 	if _is_enabled:
 		return
 	_is_enabled = true
-	Loggie.msg("Enabled").preset("Enabled").info()
+	Loggie.msg("Enabled").preset("Enabled").debug()
 	spawner.enable()
 
 func disable() -> void:
@@ -35,7 +35,7 @@ func disable() -> void:
 		return
 	_erase_all_enemies()
 	_is_enabled = false
-	Loggie.msg("Disabled").preset("Disabled").info()
+	Loggie.msg("Disabled").preset("Disabled").debug()
 	spawner.disable()
 
 # Called when the node enters the scene tree for the first time.

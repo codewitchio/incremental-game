@@ -11,14 +11,14 @@ func enable() -> void:
 	if _is_enabled:
 		return
 	_is_enabled = true
-	Loggie.msg("Enabled").preset("Enabled").info()
+	Loggie.msg("Enabled").preset("Enabled").debug()
 
 func disable() -> void:
 	if not _is_enabled:
 		return
 	remove_all_attacks()
 	_is_enabled = false
-	Loggie.msg("Disabled").preset("Disabled").info()
+	Loggie.msg("Disabled").preset("Disabled").debug()
 
 var _attack_timer: float = 0.0
 

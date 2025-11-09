@@ -25,14 +25,14 @@ func enable() -> void:
 		return
 	_is_enabled = true
 	visible = true
-	Loggie.msg("Enabled").preset("Enabled").info()
+	Loggie.msg("Enabled").preset("Enabled").debug()
 
 func disable() -> void:
 	if not _is_enabled:
 		return
 	visible = false
 	_is_enabled = false
-	Loggie.msg("Disabled").preset("Disabled").info()
+	Loggie.msg("Disabled").preset("Disabled").debug()
 	
 func _ready() -> void:
 	# Ensure this draws on top of other game elements

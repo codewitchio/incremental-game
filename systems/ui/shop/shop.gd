@@ -1,3 +1,4 @@
+class_name Shop
 extends Control
 
 @export var animation_player: AnimationPlayer
@@ -18,13 +19,13 @@ func _ready() -> void:
 	next_round_button.pressed.connect(_on_next_round_button_pressed)
 
 func enable() -> void:
-	Loggie.msg("Enabled").preset("Enabled").info()
+	Loggie.msg("Enabled").preset("Enabled").debug()
 	visible = true
 	_is_enabled = true
 	animation_player.play("enter")
 
 func disable() -> void:
-	Loggie.msg("Disabled").preset("Disabled").info()
+	Loggie.msg("Disabled").preset("Disabled").debug()
 	visible = false
 
 	# Only trigger exit animation if the UI is currently shown.
