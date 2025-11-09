@@ -22,16 +22,6 @@ debug_mode = false
 target_path = NodePath("../..")
 timed = false
 remember_active_substate = false
-next_state = NodePath("../PauseMenu")
-metadata/_custom_type_script = "uid://r7wj8xf4sp1a"
-
-[node name="PauseMenu" type="Node" parent="."]
-script = ExtResource("2_xod0r")
-disabled = false
-debug_mode = false
-target_path = NodePath("../..")
-timed = false
-remember_active_substate = false
 next_state = NodePath("../StartingNewRound")
 metadata/_custom_type_script = "uid://r7wj8xf4sp1a"
 
@@ -76,5 +66,15 @@ debug_mode = false
 target_path = NodePath("../..")
 timed = false
 remember_active_substate = false
-next_state = NodePath("../StartingNewRound")
+next_state = NodePath("../PauseMenu")
+metadata/_custom_type_script = "uid://r7wj8xf4sp1a"
+
+[node name="PauseMenu" type="Node" parent="."]
+script = ExtResource("2_xod0r")
+disabled = false
+debug_mode = false
+target_path = NodePath("../..")
+timed = false
+remember_active_substate = false
+next_state = NodePath("")
 metadata/_custom_type_script = "uid://r7wj8xf4sp1a"

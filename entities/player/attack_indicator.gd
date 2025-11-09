@@ -17,9 +17,27 @@ var max_draw_distance: float = 0.0
 var mouse_position: Vector2 = Vector2.ZERO
 var center_position: Vector2 = Constants.PlayerPosition
 
+var _is_enabled: bool = false
+var state_enabler: StateEnabler = StateEnabler.new(self, [GameState.PlayingRound])
+
+func enable() -> void:
+	if _is_enabled:
+		return
+	_is_enabled = true
+	visible = true
+	Loggie.msg("Enabled").preset("Enabled").info()
+
+func disable() -> void:
+	if not _is_enabled:
+		return
+	visible = false
+	_is_enabled = false
+	Loggie.msg("Disabled").preset("Disabled").info()
+	
 func _ready() -> void:
 	# Ensure this draws on top of other game elements
 	z_index = 10
+	visible = false
 
 	# Calculate max_draw_distance 
 	_update_max_distance()

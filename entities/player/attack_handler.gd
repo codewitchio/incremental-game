@@ -4,8 +4,7 @@ extends Node2D
 
 @export var attack_scene: PackedScene = preload("res://entities/attacks/basic_attack.tscn") as PackedScene
 
-var _is_enabled: bool = true
-
+var _is_enabled: bool = false
 var state_enabler: StateEnabler = StateEnabler.new(self, [GameState.PlayingRound])
 
 func enable() -> void:

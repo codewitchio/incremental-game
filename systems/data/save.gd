@@ -20,6 +20,7 @@ var INITIAL_PLAYER_STATS = {
     Strings.PlayerStat_CurrentHealth: 1.0,
     Strings.PlayerStat_AttackSpeed: 1.0,
     Strings.PlayerStat_AttackDamage: 1.0,
+    Strings.PlayerStat_AttackArc: 30.0,
     Strings.PlayerStat_Money: 0.0
 } as Dictionary
 

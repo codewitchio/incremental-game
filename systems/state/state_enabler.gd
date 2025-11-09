@@ -18,6 +18,7 @@ func _init(n: Node, states: Array[StringName]):
     active_states = states
     caller = n
     Signals.game_state_changed.connect(_on_game_state_changed)
+    # TODO: Call enable/disable based on initial state.
 
 func _on_game_state_changed(state: StringName):
     var enabled = state in active_states

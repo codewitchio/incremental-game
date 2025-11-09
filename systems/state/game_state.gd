@@ -22,6 +22,8 @@ func _ready() -> void:
         Signals.player_died.connect(_on_player_died)
         Signals.done_shopping.connect(_on_done_shopping)
 
+        change_state(StartingNewRound)
+
 func _on_state_changed(_sender: State, new_state: State) -> void:
     Loggie.msg("Changed to: %s" % new_state.name).preset("State").info()
     Signals.game_state_changed.emit(new_state.name)

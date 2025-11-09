@@ -19,7 +19,7 @@ const ENEMY_DEATH_VFX_SCENE: PackedScene = preload("res://entities/vfx/enemy_dea
 ## PhysicsServer2D space state for collision queries (uses world's default space).
 var space_state: PhysicsDirectSpaceState2D = null
 
-var _is_enabled: bool = true
+var _is_enabled: bool = false
 
 var state_enabler: StateEnabler = StateEnabler.new(self, [GameState.PlayingRound])
 

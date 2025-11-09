@@ -18,7 +18,7 @@ signal spawn_enemy(enemy_instance: EnemyInstance)
 
 var world_space: RID 
 
-var _is_enabled: bool = true
+var _is_enabled: bool = false
 
 func enable() -> void:
 	if _is_enabled:

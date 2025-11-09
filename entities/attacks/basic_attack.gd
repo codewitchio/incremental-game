@@ -3,7 +3,6 @@ extends Area2D
 
 # TODO: Resource
 @export var speed: float = 1000.0
-@export var damage: float = 1.0
 ## How long the projectile exists before being destroyed.
 @export var lifetime: float = 1.0
 
@@ -27,6 +26,14 @@ func _ready() -> void:
 	lifetime_timer.start()
 
 	area_shape_entered.connect(_on_area_shape_entered)
+	_update_scale()
+
+# Temporary solution
+func _update_scale() -> void:
+	# Arc is by default 30 degrees, scale accordingly
+	var estimated_scale = Save.player_stats.Get(Strings.PlayerStat_AttackArc) / 30.0
+	start_scale *= estimated_scale
+	end_scale *= estimated_scale
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -45,7 +52,7 @@ func _on_lifetime_timeout() -> void:
 
 func _on_area_shape_entered(area_id: RID, _area: Area2D, _area_shape_index: int, _body_shape_index: int) -> void:
 	if area_id.is_valid():
-		Signals.attack_colission_with_enemy.emit(area_id, damage)
+		Signals.attack_colission_with_enemy.emit(area_id, Save.player_stats.Get(Strings.PlayerStat_AttackDamage))
 		# Loggie.debug("Area shape entered:",area_id, area, area_shape_index, body_shape_index)
 
 func remove_gracefully() -> void:

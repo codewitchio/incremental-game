@@ -18,13 +18,13 @@ func _ready() -> void:
 	next_round_button.pressed.connect(_on_next_round_button_pressed)
 
 func enable() -> void:
-	Loggie.debug("Enabling shop")
+	Loggie.msg("Enabled").preset("Enabled").info()
 	visible = true
 	_is_enabled = true
 	animation_player.play("enter")
 
 func disable() -> void:
-	Loggie.debug("Disabling shop")
+	Loggie.msg("Disabled").preset("Disabled").info()
 	visible = false
 
 	# Only trigger exit animation if the UI is currently shown.
