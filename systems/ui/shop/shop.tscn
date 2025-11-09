@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://cjrfiynts2bd1"]
 
-[ext_resource type="Script" uid="uid://7s6xh6x3suko" path="res://systems/ui/shop.gd" id="1_c5v55"]
-[ext_resource type="Script" uid="uid://cpf1go040kqi8" path="res://systems/ui/upgrade_button.gd" id="2_sm1js"]
+[ext_resource type="Script" uid="uid://7s6xh6x3suko" path="res://systems/ui/shop/shop.gd" id="1_c5v55"]
+[ext_resource type="Script" uid="uid://cpf1go040kqi8" path="res://systems/ui/shop/upgrade_button.gd" id="2_sm1js"]
 [ext_resource type="Resource" uid="uid://bm4d68ggot3gw" path="res://systems/upgrades/resources/U_Attackspeed_1.tres" id="3_v7tfa"]
 
 [sub_resource type="Animation" id="Animation_sm1js"]
@@ -64,7 +64,7 @@ _data = {
 &"enter": SubResource("Animation_dj0u2")
 }
 
-[node name="Shop" type="Control" node_paths=PackedStringArray("animation_player")]
+[node name="Shop" type="Control" node_paths=PackedStringArray("animation_player", "next_round_button")]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 3
 anchors_preset = 15
@@ -74,19 +74,28 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_c5v55")
 animation_player = NodePath("AnimationPlayer")
+next_round_button = NodePath("MarginContainer/NextRoundButton")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 0
-offset_left = 879.0
-offset_top = 461.0
-offset_right = 1040.0
-offset_bottom = 618.0
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -75.5
+offset_right = 300.0
+offset_bottom = 75.5
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="Button" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-text = "Attack Speed ($50)"
+text = "Attack Speed - $50"
 script = ExtResource("2_sm1js")
 upgrade = ExtResource("3_v7tfa")
 
@@ -105,14 +114,14 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -89.0
-offset_top = -47.0
-offset_right = 89.0
+offset_left = -96.0
+offset_top = -77.0
+offset_right = 96.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/margin_bottom = 32
 
-[node name="Button" type="Button" parent="MarginContainer"]
+[node name="NextRoundButton" type="Button" parent="MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 text = "Next round"

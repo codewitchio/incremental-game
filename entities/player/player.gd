@@ -11,13 +11,18 @@ extends CharacterBody2D
 
 var _is_alive: bool = true
 
-const DAMAGE_ON_ENEMY_COLLISION: float = 1.0
+# const DAMAGE_ON_ENEMY_COLLISION: float = 1.0
 
 func _ready() -> void:
 	Signals.enemy_collision_with_player.connect(_on_enemy_collision_with_player)
+	Signals.game_state_changed.connect(_on_game_state_changed)
 
 	if animation_player == null:
 		Loggie.error("Animation player is not set")
+
+func _on_game_state_changed(state: StringName) -> void:
+	if state == GameState.StartingNewRound:
+		reset()
 
 func _on_enemy_collision_with_player(_enemy_instance: EnemyInstance) -> void:
 	if _is_alive:
@@ -27,3 +32,8 @@ func _handle_death() -> void:
 	_is_alive = false
 	Signals.player_died.emit()
 	animation_player.play("death")
+
+# Could this be solved with the StateEnabler? I guess. But it breaks semantics.
+func reset() -> void:
+	_is_alive = true
+	animation_player.play("respawn")
