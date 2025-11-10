@@ -26,7 +26,7 @@ func _ready() -> void:
         change_state(FirstStart)
 
 func _on_state_changed(_sender: State, new_state: State) -> void:
-    Loggie.msg("Changed to: %s" % new_state.name).preset("State").info()
+    Loggie.msg(new_state.name).preset("State").info()
     Signals.game_state_changed.emit(new_state.name)
 
 # Not sure I love listing these here, but idk where else it makes sense.
