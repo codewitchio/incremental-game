@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://w53wwlx3hi3s"]
 
 [ext_resource type="Script" uid="uid://d3fqket7b302" path="res://entities/attacks/basic_attack.gd" id="1_2ddqb"]
-[ext_resource type="Material" uid="uid://qdeo1fj2qy2e" path="res://systems/color_overlay_material.tres" id="2_5l8nc"]
+[ext_resource type="Material" uid="uid://qdeo1fj2qy2e" path="res://systems/palette/color_overlay_material.tres" id="2_5l8nc"]
 [ext_resource type="Texture2D" uid="uid://dw3jd8vqqg4b3" path="res://entities/attacks/wave.png" id="2_x7hq1"]
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_avmbj"]

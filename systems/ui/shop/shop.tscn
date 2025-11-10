@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://cjrfiynts2bd1"]
 
-[ext_resource type="Material" uid="uid://qdeo1fj2qy2e" path="res://systems/color_overlay_material.tres" id="1_3anwm"]
+[ext_resource type="Material" uid="uid://qdeo1fj2qy2e" path="res://systems/palette/color_overlay_material.tres" id="1_3anwm"]
 [ext_resource type="Script" uid="uid://7s6xh6x3suko" path="res://systems/ui/shop/shop.gd" id="1_c5v55"]
 [ext_resource type="Script" uid="uid://cpf1go040kqi8" path="res://systems/ui/shop/upgrade_button.gd" id="2_sm1js"]
 [ext_resource type="Resource" uid="uid://bm4d68ggot3gw" path="res://systems/upgrades/resources/U_Attackspeed_1.tres" id="3_v7tfa"]

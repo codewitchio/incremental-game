@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://hocy36oia6rv" path="res://systems/ui/tutorial.gd" id="1_5h771"]
 [ext_resource type="AnimationLibrary" uid="uid://u22i45ku2wmh" path="res://systems/ui/ui_animations.res" id="1_cj1yl"]
 [ext_resource type="Script" uid="uid://d0d5f76ket3c2" path="res://systems/ui/state_enter_exit.gd" id="2_5h771"]
-[ext_resource type="Material" uid="uid://qdeo1fj2qy2e" path="res://systems/color_overlay_material.tres" id="2_cjetu"]
+[ext_resource type="Material" uid="uid://qdeo1fj2qy2e" path="res://systems/palette/color_overlay_material.tres" id="2_cjetu"]
 
 [sub_resource type="Animation" id="Animation_cjetu"]
 length = 0.001

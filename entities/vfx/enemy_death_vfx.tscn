@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://5ckcykqsxfib"]
 
-[ext_resource type="Material" uid="uid://qdeo1fj2qy2e" path="res://systems/color_overlay_material.tres" id="1_g06qk"]
+[ext_resource type="Material" uid="uid://qdeo1fj2qy2e" path="res://systems/palette/color_overlay_material.tres" id="1_g06qk"]
 [ext_resource type="Texture2D" uid="uid://bjd33id0fvhuh" path="res://entities/player/circle.svg" id="1_wedpw"]
 [ext_resource type="Material" uid="uid://dbxxhxvykxbau" path="res://entities/vfx/enemy_death_vfx_material.tres" id="2_g06qk"]
 [ext_resource type="Script" uid="uid://djd8ifh40vjsw" path="res://entities/vfx/oneshot_vfx.gd" id="2_wtpnx"]

@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://qdeo1fj2qy2e"]
 
-[ext_resource type="Shader" uid="uid://ryxb4a2lbql8" path="res://systems/color_overlay.gdshader" id="1_y4pfy"]
+[ext_resource type="Shader" uid="uid://ryxb4a2lbql8" path="res://systems/palette/color_overlay.gdshader" id="1_y4pfy"]
 
 [resource]
 shader = ExtResource("1_y4pfy")
