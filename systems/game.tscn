@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://05bxyv1k8afd"]
+[gd_scene load_steps=25 format=3 uid="uid://05bxyv1k8afd"]
 
 [ext_resource type="Theme" uid="uid://df64srr2x8vbc" path="res://systems/ui/theme/theme.tres" id="1_dft0o"]
 [ext_resource type="Script" uid="uid://bncmmwhmf2lwo" path="res://systems/game/game.gd" id="1_o883i"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://bjd33id0fvhuh" path="res://entities/player/circle.svg" id="4_8ybjc"]
 [ext_resource type="PackedScene" uid="uid://cjrfiynts2bd1" path="res://systems/ui/shop/shop.tscn" id="4_jqpt0"]
 [ext_resource type="Script" uid="uid://b4hmdvqv5510w" path="res://entities/player/player.gd" id="4_p01kn"]
+[ext_resource type="Script" uid="uid://bv0oyj3htboho" path="res://systems/palette_manager.gd" id="4_vol34"]
+[ext_resource type="Material" uid="uid://qdeo1fj2qy2e" path="res://systems/color_overlay_material.tres" id="5_auvmg"]
 [ext_resource type="Script" uid="uid://coy03ldbbi2jk" path="res://entities/player/attack_indicator.gd" id="5_hqdei"]
 [ext_resource type="Texture2D" uid="uid://clmhbmkcn26fb" path="res://entities/enemy/triangle.svg" id="6_3msmo"]
 [ext_resource type="MultiMesh" uid="uid://bivedxr2y8i7h" path="res://systems/enemies/enemies_multimesh.tres" id="6_eo8vb"]
@@ -155,19 +157,25 @@ script = ExtResource("1_o883i")
 [node name="StatisticsTracker" type="Node" parent="."]
 script = ExtResource("11_hqdei")
 
+[node name="PaletteManager" type="Node" parent="."]
+script = ExtResource("4_vol34")
+metadata/_custom_type_script = "uid://bv0oyj3htboho"
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -1
 
 [node name="Background" type="ColorRect" parent="CanvasLayer"]
+material = ExtResource("5_auvmg")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.043137256, 0.043137256, 0.043137256, 1)
+color = Color(0, 0, 0, 1)
 
 [node name="UI" type="Control" parent="CanvasLayer"]
 z_index = 1
+material = ExtResource("5_auvmg")
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -177,6 +185,7 @@ grow_vertical = 2
 theme = ExtResource("1_dft0o")
 
 [node name="HUD" type="MarginContainer" parent="CanvasLayer/UI"]
+use_parent_material = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -186,6 +195,7 @@ grow_vertical = 2
 theme_override_constants/margin_top = 32
 
 [node name="money" type="Label" parent="CanvasLayer/UI/HUD"]
+use_parent_material = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -207,6 +217,7 @@ metadata/_custom_type_script = "uid://d0d5f76ket3c2"
 layout_mode = 1
 
 [node name="Tutorial" parent="CanvasLayer/UI" instance=ExtResource("7_8ylyn")]
+use_parent_material = true
 layout_mode = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -222,9 +233,11 @@ shape = SubResource("CircleShape2D_6o2s0")
 
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
 modulate = Color(0.93333334, 0.93333334, 0.93333334, 1)
+material = ExtResource("5_auvmg")
 texture = ExtResource("4_8ybjc")
 
 [node name="AttackIndicator" type="Node2D" parent="Player"]
+material = ExtResource("5_auvmg")
 script = ExtResource("5_hqdei")
 indicator_color = Color(0.93333334, 0.93333334, 0.93333334, 1)
 
@@ -238,6 +251,7 @@ libraries = {
 
 [node name="EnemySwarmManager" type="MultiMeshInstance2D" parent="." node_paths=PackedStringArray("spawner", "player_collision_shape")]
 modulate = Color(0.93333334, 0.93333334, 0.93333334, 1)
+material = ExtResource("5_auvmg")
 multimesh = ExtResource("6_eo8vb")
 texture = ExtResource("6_3msmo")
 script = ExtResource("6_o883i")

@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://y6ewubulhdlu"]
+[gd_scene load_steps=7 format=3 uid="uid://y6ewubulhdlu"]
 
 [ext_resource type="Script" uid="uid://hocy36oia6rv" path="res://systems/ui/tutorial.gd" id="1_5h771"]
 [ext_resource type="AnimationLibrary" uid="uid://u22i45ku2wmh" path="res://systems/ui/ui_animations.res" id="1_cj1yl"]
 [ext_resource type="Script" uid="uid://d0d5f76ket3c2" path="res://systems/ui/state_enter_exit.gd" id="2_5h771"]
+[ext_resource type="Material" uid="uid://qdeo1fj2qy2e" path="res://systems/color_overlay_material.tres" id="2_cjetu"]
 
 [sub_resource type="Animation" id="Animation_cjetu"]
 length = 0.001
@@ -13,6 +14,7 @@ _data = {
 }
 
 [node name="Tutorial" type="Control" node_paths=PackedStringArray("start_button")]
+material = ExtResource("2_cjetu")
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -23,6 +25,7 @@ script = ExtResource("1_5h771")
 start_button = NodePath("PanelContainer/MarginContainer/VBoxContainer/StartButton")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
+use_parent_material = true
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -35,6 +38,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+use_parent_material = true
 layout_mode = 2
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 0
@@ -42,9 +46,11 @@ theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+use_parent_material = true
 layout_mode = 2
 
 [node name="Header" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+use_parent_material = true
 layout_mode = 2
 theme_type_variation = &"LabelInverted"
 theme_override_font_sizes/font_size = 32
@@ -52,6 +58,7 @@ text = "Welcome!"
 horizontal_alignment = 1
 
 [node name="IntroText" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+use_parent_material = true
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 theme_type_variation = &"LabelInverted"
@@ -64,6 +71,7 @@ Note: This is a very early prototype, expect rough edges and placeholders. Thank
 autowrap_mode = 3
 
 [node name="StartButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+use_parent_material = true
 layout_mode = 2
 theme_type_variation = &"ButtonInverted"
 text = "Start"

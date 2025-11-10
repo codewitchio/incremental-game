@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://w53wwlx3hi3s"]
+[gd_scene load_steps=5 format=3 uid="uid://w53wwlx3hi3s"]
 
 [ext_resource type="Script" uid="uid://d3fqket7b302" path="res://entities/attacks/basic_attack.gd" id="1_2ddqb"]
+[ext_resource type="Material" uid="uid://qdeo1fj2qy2e" path="res://systems/color_overlay_material.tres" id="2_5l8nc"]
 [ext_resource type="Texture2D" uid="uid://dw3jd8vqqg4b3" path="res://entities/attacks/wave.png" id="2_x7hq1"]
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_avmbj"]
@@ -12,11 +13,12 @@ collision_mask = 7
 script = ExtResource("1_2ddqb")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(0.93333334, 0.93333334, 0.93333334, 1)
+material = ExtResource("2_5l8nc")
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_x7hq1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(12, 0)
 rotation = 1.5707964
 shape = SubResource("ConvexPolygonShape2D_avmbj")

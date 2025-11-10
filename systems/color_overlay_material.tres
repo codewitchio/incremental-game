@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://qdeo1fj2qy2e"]
+
+[ext_resource type="Shader" uid="uid://ryxb4a2lbql8" path="res://systems/color_overlay.gdshader" id="1_y4pfy"]
+
+[resource]
+shader = ExtResource("1_y4pfy")
+shader_parameter/background_color = Color(0.043039158, 0.04303915, 0.04303915, 1)
+shader_parameter/foreground_color = Color(0.93333334, 0.93333334, 0.93333334, 1)
+shader_parameter/threshold = 0.1999999955296
+shader_parameter/is_enabled = true

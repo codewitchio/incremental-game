@@ -1,36 +1,33 @@
-[gd_resource type="Theme" load_steps=7 format=3 uid="uid://df64srr2x8vbc"]
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://df64srr2x8vbc"]
 
 [ext_resource type="StyleBox" uid="uid://cs6o8481ktax7" path="res://systems/ui/theme/button_style_box_hover.tres" id="1_idjqg"]
 [ext_resource type="StyleBox" uid="uid://ckm71mvs7hadg" path="res://systems/ui/theme/button_style_box.tres" id="2_wx36u"]
 [ext_resource type="StyleBox" uid="uid://di4lrqhq5y5x6" path="res://systems/ui/theme/button_style_box_pressed.tres" id="3_2sr5k"]
 [ext_resource type="StyleBox" uid="uid://0mtigijv4nt2" path="res://systems/ui/theme/button_style_box_hover_inverted.tres" id="4_tcxob"]
+[ext_resource type="StyleBox" uid="uid://bnss5u6cjm2d5" path="res://systems/ui/theme/button_style_box_inverted.tres" id="5_1n7w6"]
 [ext_resource type="StyleBox" uid="uid://cp7e3qd1a5w6x" path="res://systems/ui/theme/button_style_box_pressed_inverted.tres" id="5_mpp3w"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i441u"]
-content_margin_left = 8.0
-content_margin_top = 8.0
-content_margin_right = 8.0
-content_margin_bottom = 8.0
-bg_color = Color(0.93333334, 0.93333334, 0.93333334, 1)
+[ext_resource type="StyleBox" uid="uid://ci51dpn4p3t08" path="res://systems/ui/theme/panel_container_style_box.tres" id="6_tcxob"]
 
 [resource]
-Button/colors/font_color = Color(0.93333334, 0.93333334, 0.93333334, 1)
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_disabled_color = Color(1, 1, 1, 0.49803922)
 Button/colors/font_focus_color = Color(1, 1, 1, 1)
-Button/colors/font_pressed_color = Color(0.043039158, 0.04303915, 0.04303915, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
 Button/styles/disabled = ExtResource("2_wx36u")
 Button/styles/focus = ExtResource("1_idjqg")
 Button/styles/hover = ExtResource("1_idjqg")
 Button/styles/normal = ExtResource("2_wx36u")
 Button/styles/pressed = ExtResource("3_2sr5k")
 ButtonInverted/base_type = &"Button"
-ButtonInverted/colors/font_color = Color(0.043039158, 0.04303915, 0.04303915, 1)
-ButtonInverted/colors/font_focus_color = Color(0.043039158, 0.04303915, 0.04303915, 1)
-ButtonInverted/colors/font_hover_color = Color(0.043039158, 0.04303915, 0.04303915, 1)
-ButtonInverted/colors/font_pressed_color = Color(0.93333334, 0.93333334, 0.93333334, 1)
+ButtonInverted/colors/font_color = Color(0, 0, 0, 1)
+ButtonInverted/colors/font_focus_color = Color(0, 0, 0, 1)
+ButtonInverted/colors/font_hover_color = Color(0, 0, 0, 1)
+ButtonInverted/colors/font_pressed_color = Color(1, 1, 1, 1)
 ButtonInverted/styles/focus = ExtResource("4_tcxob")
 ButtonInverted/styles/hover = ExtResource("4_tcxob")
+ButtonInverted/styles/normal = ExtResource("5_1n7w6")
 ButtonInverted/styles/pressed = ExtResource("5_mpp3w")
-Label/colors/font_color = Color(0.93333334, 0.93333334, 0.93333334, 1)
+Label/colors/font_color = Color(1, 1, 1, 1)
 LabelInverted/base_type = &"Label"
-LabelInverted/colors/font_color = Color(0.043039158, 0.04303915, 0.04303915, 1)
-PanelContainer/styles/panel = SubResource("StyleBoxFlat_i441u")
+LabelInverted/colors/font_color = Color(0, 0, 0, 1)
+PanelContainer/styles/panel = ExtResource("6_tcxob")
