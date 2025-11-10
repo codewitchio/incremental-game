@@ -56,11 +56,11 @@ custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 theme_type_variation = &"LabelInverted"
 theme_override_font_sizes/font_size = 20
-text = "The goal of this incremental game is simple: survive for as long as possible, and come back stronger each time you're defeated!
+text = "The goal of this incremental game is simple: survive for as long as possible, and come back stronger each time you're defeated.
 
 Left click or tap to fire your wave attack.
 
-Note: This is a very early prototype. Expect some rough edges! Thank you for trying it out <3 "
+Note: This is a very early prototype, expect rough edges and placeholders. Thank you for trying it out! <3 "
 autowrap_mode = 3
 
 [node name="StartButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
