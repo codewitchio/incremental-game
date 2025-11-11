@@ -86,7 +86,7 @@ func _update_enemy_positions(delta: float) -> void:
 		var direction = (target_position - enemy.position).normalized()
 		
 		# Update position based on speed
-		enemy.position += direction * enemy.speed * delta
+		enemy.position += direction * enemy.speed * delta * Save.current_level.enemy_speed_multiplier
 		
 		# Update physics collision position
 		enemy.update_collision_position()

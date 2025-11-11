@@ -16,7 +16,6 @@ func _ready() -> void:
     super._ready()
     
     if not Engine.is_editor_hint():
-        PostHog.capture("game_started")
         self.state_changed.connect(_on_state_changed)
 
         Signals.player_died.connect(_on_player_died)

@@ -45,7 +45,7 @@ func _process(delta: float) -> void:
 		return
 	
 	if spawn_rate > 0.0:
-		_spawn_timer += delta
+		_spawn_timer += delta * Save.current_level.enemy_spawn_rate_multiplier
 		if _spawn_timer >= spawn_rate:
 			_spawn_timer = 0.0
 			queue_spawn_enemy()

@@ -8,6 +8,9 @@ var statistics: Store
 var player_stats: Store
 var upgrades: Upgrades
 
+# This null feels dangerous, watch out for errors.
+var current_level: LevelData = null
+
 # I guess this could be a resource if we changed some things. Easier without StoreValue.
 # Store is already a resource, so it could @export an initial data dictionary.
 var INITIAL_STATISTICS = {
@@ -49,4 +52,4 @@ func calculate_attack_timer() -> float:
 func _on_enemy_died(_enemy_instance: EnemyInstance) -> void:
     # Currently handled in StatisticsTracker, not sure if we'll still need that though.
     # statistics.Increment(Strings.Stat_EnemiesKilled, 1)
-    player_stats.Increment(Strings.PlayerStat_Money, 1)
+    player_stats.Increment(Strings.PlayerStat_Money, 1 * Save.current_level.money_reward_multiplier)

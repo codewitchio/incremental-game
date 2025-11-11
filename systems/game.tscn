@@ -1,12 +1,16 @@
-[gd_scene load_steps=24 format=3 uid="uid://05bxyv1k8afd"]
+[gd_scene load_steps=28 format=3 uid="uid://05bxyv1k8afd"]
 
 [ext_resource type="Theme" uid="uid://df64srr2x8vbc" path="res://systems/ui/theme/theme.tres" id="1_dft0o"]
 [ext_resource type="Script" uid="uid://bncmmwhmf2lwo" path="res://systems/game/game.gd" id="1_o883i"]
 [ext_resource type="PackedScene" uid="uid://dv4oiml6lee2m" path="res://systems/state/game_state.tscn" id="2_jqpt0"]
+[ext_resource type="Script" uid="uid://jqo2rsys82wf" path="res://systems/game/level_data.gd" id="2_lhqsy"]
+[ext_resource type="Resource" uid="uid://b0a65cia1yntm" path="res://systems/game/resources/Level_1.tres" id="3_6yy6e"]
 [ext_resource type="Script" uid="uid://b2cy5jwid4j45" path="res://systems/ui/number.gd" id="3_eo8vb"]
+[ext_resource type="Resource" uid="uid://vj0vpr2b34yk" path="res://systems/game/resources/Level_2.tres" id="4_6yy6e"]
 [ext_resource type="Texture2D" uid="uid://bjd33id0fvhuh" path="res://entities/player/circle.svg" id="4_8ybjc"]
 [ext_resource type="PackedScene" uid="uid://cjrfiynts2bd1" path="res://systems/ui/shop/shop.tscn" id="4_jqpt0"]
 [ext_resource type="Script" uid="uid://b4hmdvqv5510w" path="res://entities/player/player.gd" id="4_p01kn"]
+[ext_resource type="Resource" uid="uid://dbdyu7as4gt87" path="res://systems/game/resources/Level_3.tres" id="5_01tqx"]
 [ext_resource type="Material" uid="uid://qdeo1fj2qy2e" path="res://systems/palette/color_overlay_material.tres" id="5_auvmg"]
 [ext_resource type="Script" uid="uid://coy03ldbbi2jk" path="res://entities/player/attack_indicator.gd" id="5_hqdei"]
 [ext_resource type="Texture2D" uid="uid://clmhbmkcn26fb" path="res://entities/enemy/triangle.svg" id="6_3msmo"]
@@ -150,6 +154,8 @@ _data = {
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_o883i")
+levels = Array[ExtResource("2_lhqsy")]([ExtResource("3_6yy6e"), ExtResource("4_6yy6e"), ExtResource("5_01tqx")])
+level_duration = 5.0
 
 [node name="GameState" parent="." instance=ExtResource("2_jqpt0")]
 

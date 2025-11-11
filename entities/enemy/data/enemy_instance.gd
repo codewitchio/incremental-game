@@ -27,6 +27,13 @@ func _init(world_space: RID, pos: Vector2 = Vector2.ZERO, data: EnemyData = defa
 	# Create collision area for this enemy instance
 	_setup_collision_area()
 	_add_to_physics_space(world_space)
+	_update_health()
+
+	Signals.level_changed.connect(_update_health)
+
+
+func _update_health() -> void:
+	current_health = health * Save.current_level.enemy_health_multiplier
 
 ## Sets up the collision area for this enemy instance.
 func _setup_collision_area() -> void:

@@ -9,6 +9,7 @@ signal dismiss_tutorial()
 
 # During PlayingRound
 signal enemy_died(enemy_instance: EnemyInstance)
+signal level_changed()
 signal player_died()
 
 # During BetweenRounds

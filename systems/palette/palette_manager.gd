@@ -3,6 +3,7 @@
 # class_name PaletteManager
 extends Node
 
+# If you change these, also change LevelData.gd
 const PALETTE: Dictionary = {
 	"white": Color("#eeeeee"),
 	"black": Color("#0b0b0b"),
@@ -29,6 +30,9 @@ func reset_palette() -> void:
 
 func set_palette(color_1: String, color_2: String) -> void:
 	_update_shader_material(PALETTE[color_1], PALETTE[color_2])
+
+func set_palette_from_level(level: LevelData) -> void:
+	_update_shader_material(PALETTE[level.background_color], PALETTE[level.foreground_color])
 
 func _update_shader_material(background_color: Color, foreground_color: Color) -> void:
 	color_overlay_material.set_shader_parameter("background_color", background_color)

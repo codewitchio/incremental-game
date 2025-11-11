@@ -30,7 +30,7 @@ func _on_game_state_changed(state: StringName) -> void:
 
 func _on_enemy_collision_with_player(_enemy_instance: EnemyInstance) -> void:
 	if _is_alive:
-		current_health -= DAMAGE_ON_ENEMY_COLLISION
+		current_health -= DAMAGE_ON_ENEMY_COLLISION * Save.current_level.enemy_damage_multiplier
 		if current_health <= 0:
 			_handle_death()
 		else:
