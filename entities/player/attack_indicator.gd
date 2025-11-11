@@ -1,10 +1,6 @@
 class_name AttackIndicator
 extends Node2D
 
-# TODO: Attack angle is a player stat and should be in some type of Store.
-## The angle of the attack arc in radians (e.g., PI/4 for 45 degrees)
-@export_range(0, 360,  0.1, "radians_as_degrees") var attack_angle: float = PI / 6.0 # 30 degrees default
-
 ## Color of the indicator lines
 @export var indicator_color: Color = Color(1.0, 1.0, 1.0, 1.0)
 
@@ -76,7 +72,9 @@ func _draw() -> void:
 	var mouse_angle = direction_to_mouse.angle()
 	
 	# Calculate the two edge angles of the arc
-	var half_angle = attack_angle / 2.0
+	# Convert to radians
+	var attack_arc = deg_to_rad(Save.player_stats.Get(Strings.PlayerStat_AttackArc))
+	var half_angle = attack_arc / 2.0
 	var left_angle = mouse_angle - half_angle
 	var right_angle = mouse_angle + half_angle
 	
