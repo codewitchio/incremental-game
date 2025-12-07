@@ -6,13 +6,20 @@ extends Node
 # while `ws://` is used for plain text (insecure) connections.
 @export var websocket_url = "wss://echo.websocket.org"
 @export var room_code = "ABCD"
+@export var player_speed := 350.0
+@export var spawn_origin := Vector2(160, 360)
+@export var spawn_spacing := 90.0
 
 # Our WebSocketClient instance.
 var socket = WebSocketPeer.new()
+var players: Dictionary = {}
 
 @onready var StateLabel: Label = %StateLabel
+@onready var PlayersRoot: Node2D = %Players
 
 func _ready():
+	randomize()
+
 	# Initiate connection to the given URL.
 	var err = socket.connect_to_url(websocket_url + "?roomCode=" + room_code + "&role=host")
 	if err == OK:
@@ -66,6 +73,9 @@ func _process(_delta):
 			else:
 				print("< Got binary data from server: %d bytes" % packet.size())
 
+		# Move all known players every frame while connected.
+		_update_player_positions(_delta)
+
 	# `WebSocketPeer.STATE_CLOSING` means the socket is closing.
 	# It is important to keep polling for a clean close.
 	elif state == WebSocketPeer.STATE_CLOSING:
@@ -88,9 +98,70 @@ func handle_message(message: Dictionary) -> void:
 			# playerId: string
 			# playerCount: number
 			print("Player joined: %s" % message.playerId)
+			_ensure_player(message.playerId)
+		"playerLeave":
+			# type: "playerJoin"
+			# roomCode: string
+			# playerId: string
+			# playerCount: number
+			print("Player left: %s" % message.playerId)
+			_remove_player(message.playerId)
 		"playerInput":
 			# type: "playerInput"
 			# roomCode: string
 			# playerId: string
 			# direction: "left" | "right"
 			print("Player input: %s" % message.direction)
+			_update_player_direction(message.playerId, message.direction)
+
+
+func _ensure_player(player_id: String) -> void:
+	if players.has(player_id):
+		return
+
+	var rect := ColorRect.new()
+	rect.size = Vector2(48, 48)
+	rect.color = Color.from_hsv(randf(), 0.8, 0.95)
+	rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	rect.pivot_offset = rect.size * 0.5
+
+	var spawn_x := spawn_origin.x + PlayersRoot.get_child_count() * spawn_spacing
+	rect.position = Vector2(spawn_x, spawn_origin.y)
+
+	PlayersRoot.add_child(rect)
+	players[player_id] = {
+		"node": rect,
+		"direction": 0.0,
+	}
+
+func _remove_player(player_id: String) -> void:
+	if not players.has(player_id):
+		return
+
+	var player_state = players[player_id]
+	player_state.node.queue_free()
+	players.erase(player_id)
+
+func _update_player_direction(player_id: String, direction: String) -> void:
+	_ensure_player(player_id)
+
+	var direction_sign := 0.0
+	if direction == "left":
+		direction_sign = -1.0
+	elif direction == "right":
+		direction_sign = 1.0
+	elif direction == "none":
+		direction_sign = 0.0
+
+	players[player_id].direction = direction_sign
+
+
+func _update_player_positions(delta: float) -> void:
+	for player_state in players.values():
+		var node: ColorRect = player_state.node
+		if node == null:
+			continue
+		var direction_sign: float = player_state.direction
+		if direction_sign == 0.0:
+			continue
+		node.position.x += direction_sign * player_speed * delta
