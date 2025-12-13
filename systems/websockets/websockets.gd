@@ -6,8 +6,7 @@ extends Node
 # while `ws://` is used for plain text (insecure) connections.
 @export var websocket_url = "wss://echo.websocket.org"
 @export var room_code = "ABCD"
-@export var player_speed := 650.0
-@export var spawn_origin := Vector2(160, 360)
+@export var spawn_origin := Vector2(960, 540)
 @export var spawn_spacing := 90.0
 
 # Our WebSocketClient instance.
@@ -16,6 +15,10 @@ var players: Dictionary = {}
 
 @onready var StateLabel: Label = %StateLabel
 @onready var PlayersRoot: Node2D = %Players
+
+# This is just a dictionary of player IDs to input vectors crucially wrapped in objects, so that we can pass a mutable reference to the players.
+# However, the Store class one main useful thing: non-destructive Set. This means we can create and update using the same method, and it won't overwrite the reference.
+var input_store: Store = Store.new()
 
 func _ready():
 	randomize()
@@ -73,9 +76,6 @@ func _process(_delta):
 			else:
 				print("< Got binary data from server: %d bytes" % packet.size())
 
-		# Move all known players every frame while connected.
-		_update_player_positions(_delta)
-
 	# `WebSocketPeer.STATE_CLOSING` means the socket is closing.
 	# It is important to keep polling for a clean close.
 	elif state == WebSocketPeer.STATE_CLOSING:
@@ -120,42 +120,28 @@ func _ensure_player(player_id: String) -> void:
 	if players.has(player_id):
 		return
 
-	var rect := ColorRect.new()
-	rect.size = Vector2(48, 48)
-	rect.color = Color.from_hsv(randf(), 0.8, 0.95)
-	rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	rect.pivot_offset = rect.size * 0.5
+	input_store.Set(player_id, Vector2.ZERO)
+	var player = PlayerSquare.new(player_id, input_store.ExperimentalGetRawStoreValue(player_id))
 
 	var spawn_x := spawn_origin.x + PlayersRoot.get_child_count() * spawn_spacing
-	rect.position = Vector2(spawn_x, spawn_origin.y)
+	player.position = Vector2(spawn_x, spawn_origin.y)
 
-	PlayersRoot.add_child(rect)
-	players[player_id] = {
-		"node": rect,
-		"input": Vector2.ZERO,
-	}
+	PlayersRoot.add_child(player)
+	players[player_id] = player
+	
 
 func _remove_player(player_id: String) -> void:
 	if not players.has(player_id):
 		return
 
-	var player_state = players[player_id]
-	player_state.node.queue_free()
+	var player_node = players[player_id]
+	player_node.queue_free()
 	players.erase(player_id)
 
 func _update_player_input(player_id: String, input: Array) -> void:
 	_ensure_player(player_id)
 
 	# Convert from [x, y] to Vector2
-	players[player_id].input = Vector2(input[0], input[1])
+	var input_vector = Vector2(input[0], input[1])
 
-
-func _update_player_positions(delta: float) -> void:
-	for player_state in players.values():
-		var node: ColorRect = player_state.node
-		if node == null:
-			continue
-		if player_state.input.length() == 0:
-			continue
-		node.position.x += player_state.input.x * player_speed * delta
-		node.position.y += player_state.input.y * player_speed * delta
+	input_store.Set(player_id, input_vector)

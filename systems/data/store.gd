@@ -64,3 +64,11 @@ func Subscribe(key: String, callback: Callable) -> void:
 
 func Keys() -> PackedStringArray:
 	return PackedStringArray(_data.keys())
+
+
+func ExperimentalGetRawStoreValue(key: String) -> StoreValue:
+	if !Has(key):
+		Loggie.error("%s is not a valid key" % key)
+		return null
+
+	return _data[key]
