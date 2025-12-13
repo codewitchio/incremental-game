@@ -6,7 +6,7 @@ extends Node
 # while `ws://` is used for plain text (insecure) connections.
 @export var websocket_url = "wss://echo.websocket.org"
 @export var room_code = "ABCD"
-@export var player_speed := 350.0
+@export var player_speed := 650.0
 @export var spawn_origin := Vector2(160, 360)
 @export var spawn_spacing := 90.0
 
@@ -111,8 +111,9 @@ func handle_message(message: Dictionary) -> void:
 			# roomCode: string
 			# playerId: string
 			# direction: "left" | "right"
-			print("Player input: %s" % message.direction)
-			_update_player_direction(message.playerId, message.direction)
+			# input: [x, y]
+			# print("Player input: %s" % message.input)
+			_update_player_input(message.playerId, message.input)
 
 
 func _ensure_player(player_id: String) -> void:
@@ -131,7 +132,7 @@ func _ensure_player(player_id: String) -> void:
 	PlayersRoot.add_child(rect)
 	players[player_id] = {
 		"node": rect,
-		"direction": 0.0,
+		"input": Vector2.ZERO,
 	}
 
 func _remove_player(player_id: String) -> void:
@@ -142,18 +143,11 @@ func _remove_player(player_id: String) -> void:
 	player_state.node.queue_free()
 	players.erase(player_id)
 
-func _update_player_direction(player_id: String, direction: String) -> void:
+func _update_player_input(player_id: String, input: Array) -> void:
 	_ensure_player(player_id)
 
-	var direction_sign := 0.0
-	if direction == "left":
-		direction_sign = -1.0
-	elif direction == "right":
-		direction_sign = 1.0
-	elif direction == "none":
-		direction_sign = 0.0
-
-	players[player_id].direction = direction_sign
+	# Convert from [x, y] to Vector2
+	players[player_id].input = Vector2(input[0], input[1])
 
 
 func _update_player_positions(delta: float) -> void:
@@ -161,7 +155,7 @@ func _update_player_positions(delta: float) -> void:
 		var node: ColorRect = player_state.node
 		if node == null:
 			continue
-		var direction_sign: float = player_state.direction
-		if direction_sign == 0.0:
+		if player_state.input.length() == 0:
 			continue
-		node.position.x += direction_sign * player_speed * delta
+		node.position.x += player_state.input.x * player_speed * delta
+		node.position.y += player_state.input.y * player_speed * delta
